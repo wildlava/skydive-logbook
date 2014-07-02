@@ -232,11 +232,11 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Exit Alt,Depl Alt,Delay (s),Notes
 1412,2011-08-14,Fort Morgan,King Air,RW,12500,,,4-way (org) w/Rich/Luna/Troy
 1413,2011-08-20,Fort Morgan,King Air,RW,13000,,,3-way (org) w/Daryl/James
 1414,2011-08-20,Fort Morgan,,RW,12500,,,3-way (org) w/Daryl/James
-1415,2011-08-20,Fort Morgan,King Air,RW,12500,,,3-way hybrid w/Daryl/James
+1415,2011-08-20,Fort Morgan,King Air,Hybrid,12500,,,3-way hybrid w/Daryl/James
 
 1416,2011-08-20,Fort Morgan,King Air,RW,12500,,,3-way w/Daryl/James
 1417,2011-08-20,Fort Morgan,King Air,RW,12500,,,4-way w/Marion/JD/Montana
-1418,2011-08-20,Fort Morgan,King Air,RW,12500,,,6-way hybrid w/Marion(vid)/Montana/Troy/Scott/Swen/Allan
+1418,2011-08-20,Fort Morgan,King Air,Hybrid,12500,,,6-way hybrid w/Marion(vid)/Montana/Troy/Scott/Swen/Allan
 1419,2011-09-11,Fort Morgan,King Air,RW,12500,,,3-way w/Dwight/Jeff
 1420,2011-09-11,Fort Morgan,,RW,12500,,,4-way w/Jeff/Dwight/Zac
 1421,2011-09-11,Fort Morgan,Cessna 182,RW,8000,,,4-way w/Marion/Zac/Dwight
