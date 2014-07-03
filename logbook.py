@@ -377,6 +377,9 @@ last_jump_num = -1
 last_timestamp = -1
 
 for i in sorted(jumps):
+    if len(jumps[i]) != 12:
+        sys.exit('Wrong number of columns at jump ' + str(i))
+
     if last_jump_num != -1 and i != (last_jump_num + 1):
         sys.exit('Jump numbers not monatomically increasing at jump ' + str(i))
 
