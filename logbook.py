@@ -69,6 +69,11 @@ if '--all' in sys.argv:
 else:
     all_jumps = False
 
+if '--new-only' in sys.argv:
+    new_jumps_only = True
+else:
+    new_jumps_only = False
+
 if '--export' in sys.argv:
     export = True
 else:
@@ -296,6 +301,77 @@ for line in fp:
 
 fp.close()
 
+#
+# Ingest new jumps
+#
+first_new_jump = None
+try:
+    fp = open('new_jumps.csv', 'r')
+
+    for line in fp:
+        line = line.strip()
+        if line == '':
+            continue
+
+        items = line.split(',', 8)
+
+        if items[0] == 'Jump #':
+            #if len(items) == 9:
+            #    items.insert(4, 'Gear')
+            #if len(items) == 10:
+            #    items.insert(8, 'Altitude Unit')
+            #    items.insert(10, 'Cutaway')
+            #
+            #print(','.join(items))
+            continue
+
+        jump_num = int(items[0])
+        #if jump_num in jumps:
+        #    sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in new_jumps')
+
+        if len(items) != 9:
+            sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in new_jumps')
+
+        items.insert(4, gear_used(jump_num))
+
+        if (items[5] == 'RW' or
+            items[5] == 'CRW' or
+            items[5] == 'Hop and Pop' or
+            items[5] == 'Sit-Fly' or
+            items[5] == 'Hybrid' or
+            items[5] == 'Freestyle'):
+            freefall_profile = FREEFALL_PROFILE_HORIZONTAL
+        elif items[5] == 'Tracking':
+            freefall_profile = FREEFALL_PROFILE_TRACKING
+        else:
+            sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in new_jumps')
+
+        items.insert(8, 'Feet')
+        items.insert(9, '0')
+        items.insert(11, 'No')
+
+        #if len(items) != 13:
+        #    sys.exit('Wrong number of columns at jump ' + str(jump_num))
+
+        if items[10] == '':
+            if items[7] == '':
+                items[7] = '2500'
+            items[10] = str(time_from_alt(int(items[6]), int(items[7]), freefall_profile))
+        elif items[7] == '':
+            items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
+
+        if jump_num in jumps:
+            if jumps[jump_num] != tuple(items[1:]):
+                sys.exit('Jump info does not match old info at jump ' + str(jump_num) + ' in new jump data')
+        else:
+            jumps[jump_num] = tuple(items[1:])
+            if first_new_jump == None:
+                first_new_jump = jump_num
+
+    fp.close()
+except FileNotFoundError:
+    pass
+
 # Check for errors in log data
 last_jump_num = -1
 last_timestamp = -1
@@ -320,8 +396,10 @@ if export:
     #print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Dist to Target,Delay (s),Cutaway,Notes')
 
     for i in sorted(jumps):
-        if all_jumps or i <= last_old_jump:
-            print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:11] + ('"' + jumps[i][11] + '"' ,)))
+        if (all_jumps or
+            (not new_jumps_only and i <= last_old_jump) or
+            (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
+            print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:11] + ('"' + jumps[i][11] + '"',)))
             #print(str(i) + ',' + ','.join(jumps[i]))
 
 if stats:
