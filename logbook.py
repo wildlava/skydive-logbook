@@ -64,6 +64,11 @@ if '--list' in sys.argv:
 else:
     list_jumps = False
 
+if '--all' in sys.argv:
+    all_jumps = True
+else:
+    all_jumps = False
+
 if '--export' in sys.argv:
     export = True
 else:
@@ -295,7 +300,7 @@ if export:
     #print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Dist to Target,Delay (s),Cutaway,Notes')
 
     for i in sorted(jumps):
-        if i <= last_old_jump:
+        if all_jumps or i <= last_old_jump:
             print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:11] + ('"' + jumps[i][11] + '"' ,)))
             #print(str(i) + ',' + ','.join(jumps[i]))
 
