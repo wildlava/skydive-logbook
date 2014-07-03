@@ -269,8 +269,6 @@ for line in fp:
         continue
 
     jump_num = int(items[0])
-    if jump_num in jumps:
-        continue
 
     if len(items) != 13:
         print(items)
@@ -283,7 +281,18 @@ for line in fp:
         # Should not happen for this file
         sys.exit('odd: missing pull altitude at jump ' + str(jump_num) + ' in app data')
 
-    jumps[jump_num] = tuple(items[1:])
+    # Fix quoting on notes field
+    notes = items[-1]
+    if notes.startswith('"') and notes.endswith('"'):
+        notes = notes[1:-1]
+    notes = notes.replace('""', '"')
+    items[-1] = notes
+
+    if jump_num in jumps:
+        if jumps[jump_num] != tuple(items[1:]):
+            sys.exit('Jump info does not match old info at jump ' + str(jump_num) + ' in app data')
+    else:
+        jumps[jump_num] = tuple(items[1:])
 
 fp.close()
 
