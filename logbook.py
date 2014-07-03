@@ -211,10 +211,10 @@ for line in fp:
     if jump_num in jumps:
         sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in last_logbook')
 
-    if len(items) == 9:
-        items.insert(4, gear_used(jump_num))
-    else:
+    if len(items) != 9:
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in last_logbook')
+
+    items.insert(4, gear_used(jump_num))
 
     if (items[5] == 'RW' or
         items[5] == 'CRW' or
@@ -228,13 +228,12 @@ for line in fp:
     else:
         sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in last_logbook')
 
-    if len(items) == 10:
-        items.insert(8, 'Feet')
-        items.insert(9, '0')
-        items.insert(11, 'No')
+    items.insert(8, 'Feet')
+    items.insert(9, '0')
+    items.insert(11, 'No')
 
-    if len(items) != 13:
-        sys.exit('Wrong number of columns at jump ' + str(jump_num))
+    #if len(items) != 13:
+    #    sys.exit('Wrong number of columns at jump ' + str(jump_num))
 
     if items[10] == '':
         if items[7] == '':
