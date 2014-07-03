@@ -122,6 +122,19 @@ for line in fp:
     if len(items) != 6:
         sys.exit('Wrong number of columns at jump ' + str(jump_num))
 
+    if (items[4] == 'RW' or
+        items[4] == 'CRW' or
+        items[4] == 'Static Line' or
+        items[4] == 'Hop and Pop' or
+        items[4] == 'Sit-Fly' or
+        items[4] == 'Hybrid' or
+        items[4] == 'Freestyle'):
+        freefall_profile = FREEFALL_PROFILE_HORIZONTAL
+    elif items[4] == 'Tracking':
+        freefall_profile = FREEFALL_PROFILE_TRACKING
+    else:
+        sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in first_logbooks')
+
     first_jumps[jump_num] = tuple(items[1:])
 
 fp.close()
