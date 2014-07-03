@@ -103,7 +103,7 @@ for line in fp:
     if line == '':
         continue
 
-    items = line.split(',')
+    items = line.split(',', 5)
 
     if items[0] == 'Jump #':
         #if len(items) == 9:
@@ -195,7 +195,7 @@ for line in fp:
     if line == '':
         continue
 
-    items = line.split(',')
+    items = line.split(',', 8)
 
     if items[0] == 'Jump #':
         #if len(items) == 9:
@@ -258,7 +258,7 @@ for line in fp:
     if line == '':
         continue
 
-    items = line.split(',')
+    items = line.split(',', 12)
 
     if items[0] == 'Jump #':
         #if len(items) == 9:
