@@ -141,14 +141,13 @@ fp.close()
 
 fp = open('logbook.dat', 'r')
 
-old_default_date = '1989-12-31'
 jump_num = 1
 
+date = ''
+gear = ''
 for line in fp:
-    date = old_default_date
     location = ''
     aircraft = ''
-    gear = ''
     jump_type = ''
     notes = ''
 
