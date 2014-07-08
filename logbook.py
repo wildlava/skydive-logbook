@@ -313,26 +313,15 @@ try:
         if line == '':
             continue
 
-        items = line.split(',', 8)
+        items = line.split(',', 12)
 
         if items[0] == 'Jump #':
-            #if len(items) == 9:
-            #    items.insert(4, 'Gear')
-            #if len(items) == 10:
-            #    items.insert(8, 'Altitude Unit')
-            #    items.insert(10, 'Cutaway')
-            #
-            #print(','.join(items))
             continue
 
         jump_num = int(items[0])
-        #if jump_num in jumps:
-        #    sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in new_jumps')
 
-        if len(items) != 9:
+        if len(items) != 13:
             sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in new_jumps')
-
-        items.insert(4, gear_used(jump_num))
 
         if (items[5] == 'RW' or
             items[5] == 'CRW' or
@@ -345,13 +334,6 @@ try:
             freefall_profile = FREEFALL_PROFILE_TRACKING
         else:
             sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in new_jumps')
-
-        items.insert(8, 'Feet')
-        items.insert(9, '0')
-        items.insert(11, 'No')
-
-        #if len(items) != 13:
-        #    sys.exit('Wrong number of columns at jump ' + str(jump_num))
 
         if items[10] == '':
             if items[7] == '':
