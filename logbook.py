@@ -337,7 +337,7 @@ try:
 
         if items[10] == '':
             if items[7] == '':
-                items[7] = '2500'
+                items[7] = '2700'
             items[10] = str(time_from_alt(int(items[6]), int(items[7]), freefall_profile))
         elif items[7] == '':
             items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
