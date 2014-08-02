@@ -64,10 +64,10 @@ if '--list' in sys.argv:
 else:
     list_jumps = False
 
-if '--all' in sys.argv:
-    all_jumps = True
+if '--old-only' in sys.argv:
+    old_jumps_only = True
 else:
-    all_jumps = False
+    old_jumps_only = False
 
 if '--new-only' in sys.argv:
     new_jumps_only = True
@@ -374,15 +374,18 @@ for i in sorted(jumps):
 
 if list_jumps:
     for i in sorted(jumps):
-        print(str(i) + ',' + ','.join(jumps[i]))
+        if ((not old_jumps_only and not new_jumps_only) or
+            (old_jumps_only and i <= last_old_jump) or
+            (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
+            print(str(i) + ',' + ','.join(jumps[i]))
 
 if export:
     print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Delay (s),Cutaway,Notes')
     #print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Dist to Target,Delay (s),Cutaway,Notes')
 
     for i in sorted(jumps):
-        if (all_jumps or
-            (not new_jumps_only and i <= last_old_jump) or
+        if ((not old_jumps_only and not new_jumps_only) or
+            (old_jumps_only and i <= last_old_jump) or
             (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
             print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:11] + ('"' + jumps[i][11] + '"',)))
             #print(str(i) + ',' + ','.join(jumps[i]))
