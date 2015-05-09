@@ -49,16 +49,6 @@ def alt_from_time(ealt, t, jump_type):
     return(ealt - d)
 
 
-def gear_used(jump_num):
-    gear = ''
-    for gear_log_entry in gear_log:
-        if int(gear_log_entry[0]) > jump_num:
-            break
-        gear = gear_log_entry[1]
-
-    return gear
-
-
 if '--list' in sys.argv:
     list_jumps = True
 else:
@@ -84,179 +74,20 @@ if '--stats' in sys.argv:
 else:
     stats = False
 
-#
-# Ingest gear log data
-#
-fp = open('gear.csv', 'r')
-
-gear_log = []
-for line in fp:
-    gear_log.append(line.strip().split(','))
-
-fp.close()
 
 jumps = {}
 
 #
-# Ingest data from old logbooks
+# Ingest data from old logbook
 #
-fp = open('first_logbooks.csv', 'r')
+fp = open('old_jumps_andy.csv', 'r')
 
-first_jumps = {}
+ignore_next_line = False
 for line in fp:
-    line = line.strip()
-    if line == '':
+    if ignore_next_line:
+        ignore_next_line = False
         continue
 
-    items = line.split(',', 5)
-
-    if items[0] == 'Jump #':
-        #if len(items) == 9:
-        #    items.insert(4, 'Gear')
-        #if len(items) == 10:
-        #    items.insert(8, 'Altitude Unit')
-        #    items.insert(10, 'Cutaway')
-        #
-        #print(','.join(items))
-        continue
-
-    jump_num = int(items[0])
-    if jump_num in first_jumps:
-        sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in first_logbooks')
-
-    if len(items) != 6:
-        sys.exit('Wrong number of columns at jump ' + str(jump_num))
-
-    if (items[4] == 'RW' or
-        items[4] == 'CRW' or
-        items[4] == 'Static Line' or
-        items[4] == 'Hop and Pop' or
-        items[4] == 'Sit-Fly' or
-        items[4] == 'Hybrid' or
-        items[4] == 'Freestyle'):
-        freefall_profile = FREEFALL_PROFILE_HORIZONTAL
-    elif items[4] == 'Tracking':
-        freefall_profile = FREEFALL_PROFILE_TRACKING
-    else:
-        sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in first_logbooks')
-
-    first_jumps[jump_num] = tuple(items[1:])
-
-fp.close()
-
-fp = open('logbook.dat', 'r')
-
-jump_num = 1
-
-date = ''
-gear = ''
-for line in fp:
-    location = ''
-    aircraft = ''
-    jump_type = ''
-    notes = ''
-
-    if jump_num < 1208:
-        items = line.strip().split()
-        exit_alt = int(items[0])
-        freefall_time = int(items[1])
-        if freefall_time < 0:
-            deploy_alt = 2500
-            freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-        else:
-            deploy_alt = alt_from_time(exit_alt, freefall_time, FREEFALL_PROFILE_HORIZONTAL)
-            if jump_num < 100 and deploy_alt < 2500 and exit_alt >= 3000:
-                deploy_alt = 2500
-                freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-            elif deploy_alt < 2200 and exit_alt >= 3000:
-                deploy_alt = 2200
-                freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-            #if deploy_alt < 2500:
-            #    print('*************************************************************')
-
-        if jump_num in first_jumps:
-            date = first_jumps[jump_num][0]
-            location = first_jumps[jump_num][1]
-            aircraft = first_jumps[jump_num][2]
-            jump_type = first_jumps[jump_num][3]
-            notes = first_jumps[jump_num][4]
-
-        gear = gear_used(jump_num)
-
-        jumps[jump_num] = (date, location, aircraft, gear, jump_type, str(exit_alt), str(deploy_alt), 'Feet', '0', str(freefall_time), 'No', notes)
-
-        jump_num += 1
-
-fp.close()
-
-#
-# Ingest data manually entered from last paper logbook
-#
-fp = open('last_logbook.csv', 'r')
-
-for line in fp:
-    line = line.strip()
-    if line == '':
-        continue
-
-    items = line.split(',', 8)
-
-    if items[0] == 'Jump #':
-        #if len(items) == 9:
-        #    items.insert(4, 'Gear')
-        #if len(items) == 10:
-        #    items.insert(8, 'Altitude Unit')
-        #    items.insert(10, 'Cutaway')
-        #
-        #print(','.join(items))
-        continue
-
-    jump_num = int(items[0])
-    if jump_num in jumps:
-        sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in last_logbook')
-
-    if len(items) != 9:
-        sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in last_logbook')
-
-    items.insert(4, gear_used(jump_num))
-
-    if (items[5] == 'RW' or
-        items[5] == 'CRW' or
-        items[5] == 'Hop and Pop' or
-        items[5] == 'Sit-Fly' or
-        items[5] == 'Hybrid' or
-        items[5] == 'Freestyle'):
-        freefall_profile = FREEFALL_PROFILE_HORIZONTAL
-    elif items[5] == 'Tracking':
-        freefall_profile = FREEFALL_PROFILE_TRACKING
-    else:
-        sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in last_logbook')
-
-    items.insert(8, 'Feet')
-    items.insert(9, '0')
-    items.insert(11, 'No')
-
-    #if len(items) != 13:
-    #    sys.exit('Wrong number of columns at jump ' + str(jump_num))
-
-    if items[10] == '':
-        if items[7] == '':
-            items[7] = '2500'
-        items[10] = str(time_from_alt(int(items[6]), int(items[7]), freefall_profile))
-    elif items[7] == '':
-        items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
-
-    jumps[jump_num] = tuple(items[1:])
-
-fp.close()
-last_old_jump = jump_num
-
-#
-# Ingest data from Skydiving Logbook app
-#
-fp = open('skydiving_logbook.csv', 'r')
-
-for line in fp:
     line = line.strip()
     if line == '':
         continue
@@ -275,6 +106,10 @@ for line in fp:
 
     jump_num = int(items[0])
 
+    if len(items) == 12:
+        # No Notes field - add a blank one
+        items.append('')
+
     if len(items) != 13:
         print(items)
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in app data')
@@ -286,73 +121,101 @@ for line in fp:
         # Should not happen for this file
         sys.exit('odd: missing pull altitude at jump ' + str(jump_num) + ' in app data')
 
+    # Reformat date if needed
+    if items[1].find('/') != -1:
+        m, d, y = tuple(int(e) for e in items[1].split('/'))
+        items[1] = "%04d-%02d-%02d" % (y, m, d)
+
     # Fix quoting on notes field
     notes = items[-1]
-    if notes.startswith('"') and notes.endswith('"'):
-        notes = notes[1:-1]
+    if notes.startswith('"'):
+        if notes.endswith('"'):
+            notes = notes[1:-1]
+        else:
+            notes = notes[1:]
+            ignore_next_line = True
     notes = notes.replace('""', '"')
     items[-1] = notes
 
     if jump_num in jumps:
         if jumps[jump_num] != tuple(items[1:]):
-            sys.exit('Jump info does not match old info at jump ' + str(jump_num) + ' in app data')
+            sys.exit('Jump info does not match old info at jump ' + str(jump_num) + ' in old data')
     else:
         jumps[jump_num] = tuple(items[1:])
 
 fp.close()
+last_old_jump = jump_num
 
 #
-# Ingest new jumps
+# Ingest data from new/app logbook file
 #
+# (note that code is dupicated largely from above so behavior
+#  can be slightly tweaked)
+#
+fp = open('skydiving_logbook_andy.csv', 'r')
+
+ignore_next_line = False
+for line in fp:
+    if ignore_next_line:
+        ignore_next_line = False
+        continue
+
+    line = line.strip()
+    if line == '':
+        continue
+
+    items = line.split(',', 12)
+
+    if items[0] == 'Jump #':
+        #if len(items) == 9:
+        #    items.insert(4, 'Gear')
+        #if len(items) == 10:
+        #    items.insert(8, 'Altitude Unit')
+        #    items.insert(10, 'Cutaway')
+        #
+        #print(','.join(items))
+        continue
+
+    jump_num = int(items[0])
+
+    if len(items) == 12:
+        # No Notes field - add a blank one
+        items.append('')
+
+    if len(items) != 13:
+        print(items)
+        sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in app data')
+
+    if items[10] == '':
+        # Should not happen for this file
+        sys.exit('odd: missing freefall time at jump ' + str(jump_num) + ' in app data')
+    elif items[7] == '':
+        # Should not happen for this file
+        sys.exit('odd: missing pull altitude at jump ' + str(jump_num) + ' in app data')
+
+    # Reformat date if needed
+    if items[1].find('/') != -1:
+        m, d, y = tuple(int(e) for e in items[1].split('/'))
+        items[1] = "%04d-%02d-%02d" % (y, m, d)
+
+    # Fix quoting on notes field
+    notes = items[-1]
+    if notes.startswith('"'):
+        if notes.endswith('"'):
+            notes = notes[1:-1]
+        else:
+            notes = notes[1:]
+            ignore_next_line = True
+    notes = notes.replace('""', '"')
+    items[-1] = notes
+
+    jumps[jump_num] = tuple(items[1:])
+
+fp.close()
+
+# Not processing new jumps (yet)
 first_new_jump = None
-try:
-    fp = open('new_jumps.csv', 'r')
 
-    for line in fp:
-        line = line.strip()
-        if line == '':
-            continue
-
-        items = line.split(',', 12)
-
-        if items[0] == 'Jump #':
-            continue
-
-        jump_num = int(items[0])
-
-        if len(items) != 13:
-            sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in new_jumps')
-
-        if (items[5] == 'RW' or
-            items[5] == 'CRW' or
-            items[5] == 'Hop and Pop' or
-            items[5] == 'Sit-Fly' or
-            items[5] == 'Hybrid' or
-            items[5] == 'Freestyle'):
-            freefall_profile = FREEFALL_PROFILE_HORIZONTAL
-        elif items[5] == 'Tracking':
-            freefall_profile = FREEFALL_PROFILE_TRACKING
-        else:
-            sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in new_jumps')
-
-        if items[10] == '':
-            if items[7] == '':
-                items[7] = '2700'
-            items[10] = str(time_from_alt(int(items[6]), int(items[7]), freefall_profile))
-        elif items[7] == '':
-            items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
-
-        if jump_num in jumps:
-            if jumps[jump_num] != tuple(items[1:]):
-                sys.exit('Jump info does not match old info at jump ' + str(jump_num) + ' in new jump data')
-        else:
-            jumps[jump_num] = tuple(items[1:])
-            if first_new_jump == None:
-                first_new_jump = jump_num
-
-    fp.close()
-except FileNotFoundError:
-    pass
 
 # Check for errors in log data
 last_jump_num = -1
@@ -367,7 +230,8 @@ for i in sorted(jumps):
 
     timestamp = calendar.timegm(time.strptime(jumps[i][0], '%Y-%m-%d'))
     if last_timestamp != -1 and timestamp < last_timestamp:
-        sys.exit('Jump date goes back in time at jump ' + str(i))
+        #sys.exit('Jump date goes back in time at jump ' + str(i))
+        print('Warning: Jump date goes back in time at jump ' + str(i))
 
     last_jump_num = i
     last_timestamp = timestamp
