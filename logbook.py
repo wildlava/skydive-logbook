@@ -74,6 +74,16 @@ if '--new-only' in sys.argv:
 else:
     new_jumps_only = False
 
+if '--header' in sys.argv:
+    header = True
+else:
+    header = False
+
+if '--csv' in sys.argv:
+    csv = True
+else:
+    csv = False
+
 if '--export' in sys.argv:
     export = True
 else:
@@ -377,25 +387,41 @@ for i in sorted(jumps):
     last_timestamp = timestamp
 
 if list_jumps:
-    for i in sorted(jumps):
-        if ((not old_jumps_only and not new_jumps_only) or
-            (old_jumps_only and i <= last_old_jump) or
-            (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-            print(str(i) + ',' + ','.join(jumps[i]))
+    if header:
+        if export or csv:
+            print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Delay (s),Cutaway,Notes')
+            #print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Dist to Target,Delay (s),Cutaway,Notes')
+        else:
+            print('Jump #: Date|Drop Zone|Aircraft|Gear|Jump Type|Exit Alt|Depl Alt|Altitude Unit|Delay (s)|Cutaway|Notes')
 
-if export:
-    print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Delay (s),Cutaway,Notes')
-    #print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Dist to Target,Delay (s),Cutaway,Notes')
+    if csv:
+        for i in sorted(jumps):
+            if ((not old_jumps_only and not new_jumps_only) or
+                (old_jumps_only and i <= last_old_jump) or
+                (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
+                notes = jumps[i][11]
+                if ',' in notes or '"' in notes:
+                    notes = '"' + notes.replace('"', '""') + '"'
+                print(str(i) + ',' + ','.join(jumps[i][:11] + (notes,)))
+    elif export:
+        for i in sorted(jumps):
+            if ((not old_jumps_only and not new_jumps_only) or
+                (old_jumps_only and i <= last_old_jump) or
+                (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
+                notes = jumps[i][11]
+                if ',' in notes or '"' in notes:
+                    notes = '"' + notes.replace('"', '""') + '"'
+                print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:11] + (notes,)))
+    else:
+        for i in sorted(jumps):
+            if ((not old_jumps_only and not new_jumps_only) or
+                (old_jumps_only and i <= last_old_jump) or
+                (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
+                print(str(i) + ': ' + '|'.join(jumps[i]))
 
-    for i in sorted(jumps):
-        if ((not old_jumps_only and not new_jumps_only) or
-            (old_jumps_only and i <= last_old_jump) or
-            (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-            print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:11] + ('"' + jumps[i][11] + '"',)))
-            #print(str(i) + ',' + ','.join(jumps[i]))
 
 if stats:
-    if export:
+    if list_jumps:
         print('')
 
     today = datetime.date.today()
