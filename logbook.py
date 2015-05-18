@@ -110,7 +110,7 @@ for line in fp:
 
     items = line.split(',', 5)
 
-    if items[0] == 'Jump #':
+    if not items[0].isdigit():
         #if len(items) == 9:
         #    items.insert(4, 'Gear')
         #if len(items) == 10:
@@ -201,7 +201,7 @@ for line in fp:
 
     items = line.split(',', 8)
 
-    if items[0] == 'Jump #':
+    if not items[0].isdigit():
         #if len(items) == 9:
         #    items.insert(4, 'Gear')
         #if len(items) == 10:
@@ -263,7 +263,7 @@ for line in fp:
 
     items = line.split(',', 12)
 
-    if items[0] == 'Jump #':
+    if not items[0].isdigit():
         #if len(items) == 9:
         #    items.insert(4, 'Gear')
         #if len(items) == 10:
@@ -315,7 +315,7 @@ try:
 
         items = line.split(',', 12)
 
-        if items[0] == 'Jump #':
+        if not items[0].isdigit():
             continue
 
         jump_num = int(items[0])
