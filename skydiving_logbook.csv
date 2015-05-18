@@ -1272,7 +1272,7 @@ Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Di
 1252,1999-07-24,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,4-way
 1253,1999-07-24,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,4-way
 1254,1999-07-24,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,4-way
-1255,1999-07-31,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,11-way ""big-way""
+1255,1999-07-31,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,"11-way ""big-way"""
 1256,1999-08-07,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,8-way zoo
 1257,1999-08-07,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,6-way
 1258,1999-08-07,,,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,3-way
@@ -1284,10 +1284,10 @@ Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Di
 1264,1999-08-22,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,8-way
 1265,1999-08-22,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,8-way
 1266,1999-08-22,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,7-way
-1267,1999-09-05,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,10-way ""big-way""
-1268,1999-09-05,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,9-way ""big-way""
-1269,1999-09-05,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,12-way ""big-way""
-1270,1999-09-05,Mile-Hi,King Air,Racer / Sabre 170,RW,14000,2500,Feet,0,68,No,11-way ""big-way""
+1267,1999-09-05,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,"10-way ""big-way"""
+1268,1999-09-05,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,"9-way ""big-way"""
+1269,1999-09-05,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,"12-way ""big-way"""
+1270,1999-09-05,Mile-Hi,King Air,Racer / Sabre 170,RW,14000,2500,Feet,0,68,No,"11-way ""big-way"""
 1271,1999-10-23,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,2-way w/Jay
 1272,1999-10-23,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,5-way
 1273,1999-11-06,Calhan,Caravan,Racer / Sabre 170,RW,11000,2500,Feet,0,51,No,10-way
@@ -1333,7 +1333,7 @@ Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Di
 1313,2001-05-12,Mile-Hi,King Air,Racer / Sabre 170,RW,12600,2345,Feet,0,61,No,Coach eval w/Jay (cat G)
 1314,2001-05-12,Mile-Hi,King Air,Racer / Sabre 170,RW,12000,2273,Feet,0,58,No,3-way w/Jay/SteveSassetti
 1315,2001-05-13,Mile-Hi,King Air,Racer / Sabre 170,RW,12400,2145,Feet,0,61,No,6-way w/Jay/Steve/Rob/Scott/Jason
-1316,2001-05-13,Mile-Hi,King Air,Racer / Sabre 170,CRW,12000,11743,Feet,0,4,No,Open high ""6-way"" / Steve & I ""bumped end-cells""
+1316,2001-05-13,Mile-Hi,King Air,Racer / Sabre 170,CRW,12000,11743,Feet,0,4,No,"Open high ""6-way"" / Steve & I ""bumped end-cells"""
 1317,2001-06-09,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2597,Feet,0,59,No,10-way w/Walt
 1318,2001-06-10,Mile-Hi,King Air,Racer / Sabre 170,RW,12500,2069,Feet,0,62,No,Coach jump w/JoshBillman
 1319,2001-07-06,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12300,5741,Feet,0,40,No,2-way then no-contact CRW w/Steve
@@ -1386,7 +1386,7 @@ Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Di
 1366,2008-10-04,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,5-way
 1367,2008-10-04,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,5-way
 1368,2008-10-04,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,6-way
-1369,2009-06-28,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,6000,2500,Feet,0,23,No,""low"" exit
+1369,2009-06-28,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,6000,2500,Feet,0,23,No,"""low"" exit"
 1370,2009-06-28,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,2-way w/Oleg
 1371,2009-06-28,Boulder,Cessna 206,Racer / Sabre 170,RW,8500,2500,Feet,0,37,No,3-way w/Oleg
 1372,2009-08-14,Boulder,Cessna 206,Racer / Sabre 170,RW,10500,2500,Feet,0,48,No,2-way w/Oleg
@@ -1394,7 +1394,7 @@ Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Di
 1374,2010-05-16,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12000,2500,Feet,0,57,No,2-way w/Oleg
 1375,2010-05-16,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12000,2500,Feet,0,57,No,2-way w/Oleg
 1376,2010-05-16,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,10500,2500,Feet,0,48,No,2-way swoop w/Oleg
-1377,2010-05-16,Mile-Hi,Twin Otter,Racer / Sabre 170,Hop and Pop,12500,12000,Feet,0,6,No,""XC""
+1377,2010-05-16,Mile-Hi,Twin Otter,Racer / Sabre 170,Hop and Pop,12500,12000,Feet,0,6,No,"""XC"""
 1378,2010-06-05,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,11400,2500,Feet,0,53,No,7-way w/JimM
 1379,2010-06-05,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,11400,2500,Feet,0,53,No,6-way w/JimM
 1380,2010-06-05,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,11700,2500,Feet,0,55,No,3-way w/JimM
@@ -1463,7 +1463,7 @@ Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Di
 1443,2012-05-20,Mile-Hi,King Air,Racer / Storm 150,Hop and Pop,5000,3721,Feet,0,10,No,
 1444,2012-05-20,Mile-Hi,King Air,Racer / Storm 150,RW,12500,2500,Feet,0,60,No,2-way w/Luna
 1445,2012-05-26,Mile-Hi,Twin Otter,Racer / Storm 150,Hop and Pop,6500,5221,Feet,0,10,No,
-1446,2012-05-26,Mile-Hi,Twin Otter,Racer / Storm 150,RW,12500,2500,Feet,0,60,No,11-way ""speed star""
+1446,2012-05-26,Mile-Hi,Twin Otter,Racer / Storm 150,RW,12500,2500,Feet,0,60,No,"11-way ""speed star"""
 1447,2012-05-26,Mile-Hi,Twin Otter,Racer / Storm 150,Tracking,12500,2500,Feet,0,72,No,Tracking dive! w/Pattrick
 1448,2012-05-27,Fort Morgan,King Air,Racer / Storm 150,RW,13000,2500,Feet,0,62,No,5-way
 1449,2012-05-27,Fort Morgan,King Air,Racer / Storm 150,RW,12000,2500,Feet,0,57,No,4-way
@@ -1488,14 +1488,14 @@ Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Di
 1468,2012-08-18,Perris,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,3-way w/Eloise/Amanda (Eloise just got A license)
 1469,2012-08-18,Perris,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,5-way w/Darryld/MarySantAngelo
 1470,2012-08-18,Perris,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,4-way w/Darryd/MikeMuscat/Keith
-1471,2012-08-25,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,23-way ""Whacker"" - 3 points (Jim's Big-Way weekend)
-1472,2012-08-25,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,23-way ""Whacker"" - 4 points
-1473,2012-08-25,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,24-way ""Diamond Dogs"" - 2 points
-1474,2012-08-25,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,24-way ""Diamond Dogs"" - not complete
-1475,2012-08-26,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,24-way ""Traci's Tirade"" - 2 points
-1476,2012-08-26,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,24-way ""Traci's Tirade"" - 2 points
-1477,2012-08-26,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,24-way ""Bipolar"" - 1 point - nice!
-1478,2012-08-26,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,24-way ""Whacker"" - 2 points
+1471,2012-08-25,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,"23-way ""Whacker"" - 3 points (Jim's Big-Way weekend)"
+1472,2012-08-25,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,"23-way ""Whacker"" - 4 points"
+1473,2012-08-25,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,"24-way ""Diamond Dogs"" - 2 points"
+1474,2012-08-25,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,"24-way ""Diamond Dogs"" - not complete"
+1475,2012-08-26,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,"24-way ""Traci's Tirade"" - 2 points"
+1476,2012-08-26,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,"24-way ""Traci's Tirade"" - 2 points"
+1477,2012-08-26,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,"24-way ""Bipolar"" - 1 point - nice!"
+1478,2012-08-26,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,15000,2500,Feet,0,74,No,"24-way ""Whacker"" - 2 points"
 1479,2012-09-16,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,11-way w/Jim
 1480,2012-09-16,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,10-way w/Jim
 1481,2012-09-16,Mile-Hi,Twin Otter,Racer / Sabre 170,RW,12500,2500,Feet,0,60,No,9-way w/Jim

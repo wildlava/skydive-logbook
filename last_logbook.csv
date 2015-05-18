@@ -51,7 +51,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Exit Alt,Depl Alt,Delay (s),Notes
 1252,1999-07-24,Mile-Hi,Twin Otter,RW,12500,,,4-way
 1253,1999-07-24,Mile-Hi,Twin Otter,RW,12500,,,4-way
 1254,1999-07-24,Mile-Hi,Twin Otter,RW,12500,,,4-way
-1255,1999-07-31,Mile-Hi,Twin Otter,RW,12500,,,11-way "big-way"
+1255,1999-07-31,Mile-Hi,Twin Otter,RW,12500,,,"11-way ""big-way"""
 1256,1999-08-07,Mile-Hi,Twin Otter,RW,12500,,,8-way zoo
 1257,1999-08-07,Mile-Hi,Twin Otter,RW,12500,,,6-way
 1258,1999-08-07,,,RW,12500,,,3-way
@@ -64,10 +64,10 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Exit Alt,Depl Alt,Delay (s),Notes
 1264,1999-08-22,Mile-Hi,Twin Otter,RW,12500,,,8-way
 1265,1999-08-22,Mile-Hi,Twin Otter,RW,12500,,,8-way
 1266,1999-08-22,Mile-Hi,Twin Otter,RW,12500,,,7-way
-1267,1999-09-05,Mile-Hi,King Air,RW,12500,,,10-way "big-way"
-1268,1999-09-05,Mile-Hi,King Air,RW,12500,,,9-way "big-way"
-1269,1999-09-05,Mile-Hi,King Air,RW,12500,,,12-way "big-way"
-1270,1999-09-05,Mile-Hi,King Air,RW,14000,,,11-way "big-way"
+1267,1999-09-05,Mile-Hi,King Air,RW,12500,,,"10-way ""big-way"""
+1268,1999-09-05,Mile-Hi,King Air,RW,12500,,,"9-way ""big-way"""
+1269,1999-09-05,Mile-Hi,King Air,RW,12500,,,"12-way ""big-way"""
+1270,1999-09-05,Mile-Hi,King Air,RW,14000,,,"11-way ""big-way"""
 1271,1999-10-23,Mile-Hi,King Air,RW,12500,,,2-way w/Jay
 
 1272,1999-10-23,Mile-Hi,King Air,RW,12500,,,5-way
@@ -117,7 +117,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Exit Alt,Depl Alt,Delay (s),Notes
 1313,2001-05-12,Mile-Hi,King Air,RW,12600,,61,Coach eval w/Jay (cat G)
 1314,2001-05-12,Mile-Hi,King Air,RW,12000,,58,3-way w/Jay/SteveSassetti
 1315,2001-05-13,Mile-Hi,King Air,RW,12400,,61,6-way w/Jay/Steve/Rob/Scott/Jason
-1316,2001-05-13,Mile-Hi,King Air,CRW,12000,,4,Open high "6-way" / Steve & I "bumped end-cells"
+1316,2001-05-13,Mile-Hi,King Air,CRW,12000,,4,"Open high ""6-way"" / Steve & I ""bumped end-cells"""
 1317,2001-06-09,Mile-Hi,King Air,RW,12500,,59,10-way w/Walt
 1318,2001-06-10,Mile-Hi,King Air,RW,12500,,62,Coach jump w/JoshBillman
 1319,2001-07-06,Mile-Hi,Twin Otter,RW,12300,,40,2-way then no-contact CRW w/Steve
@@ -179,7 +179,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Exit Alt,Depl Alt,Delay (s),Notes
 1367,2008-10-04,Mile-Hi,Twin Otter,RW,12500,,,5-way
 
 1368,2008-10-04,Mile-Hi,Twin Otter,RW,12500,,,6-way
-1369,2009-06-28,Mile-Hi,Twin Otter,RW,6000,,,"low" exit
+1369,2009-06-28,Mile-Hi,Twin Otter,RW,6000,,,"""low"" exit"
 1370,2009-06-28,Mile-Hi,Twin Otter,RW,12500,,,2-way w/Oleg
 1371,2009-06-28,Boulder,Cessna 206,RW,8500,,,3-way w/Oleg
 1372,2009-08-14,Boulder,Cessna 206,RW,10500,,,2-way w/Oleg
@@ -188,7 +188,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Exit Alt,Depl Alt,Delay (s),Notes
 1374,2010-05-16,Mile-Hi,Twin Otter,RW,12000,,,2-way w/Oleg
 1375,2010-05-16,Mile-Hi,Twin Otter,RW,12000,,,2-way w/Oleg
 1376,2010-05-16,Mile-Hi,Twin Otter,RW,10500,,,2-way swoop w/Oleg
-1377,2010-05-16,Mile-Hi,Twin Otter,Hop and Pop,12500,12000,,"XC"
+1377,2010-05-16,Mile-Hi,Twin Otter,Hop and Pop,12500,12000,,"""XC"""
 1378,2010-06-05,Mile-Hi,Twin Otter,RW,11400,,,7-way w/JimM
 1379,2010-06-05,Mile-Hi,Twin Otter,RW,11400,,,6-way w/JimM
 
@@ -269,7 +269,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Exit Alt,Depl Alt,Delay (s),Notes
 1444,2012-05-20,Mile-Hi,King Air,RW,12500,,,2-way w/Luna
 1445,2012-05-26,Mile-Hi,Twin Otter,Hop and Pop,6500,,10,
 
-1446,2012-05-26,Mile-Hi,Twin Otter,RW,12500,,,11-way "speed star"
+1446,2012-05-26,Mile-Hi,Twin Otter,RW,12500,,,"11-way ""speed star"""
 1447,2012-05-26,Mile-Hi,Twin Otter,Tracking,12500,,,Tracking dive! w/Pattrick
 1448,2012-05-27,Fort Morgan,King Air,RW,13000,,,5-way
 1449,2012-05-27,Fort Morgan,King Air,RW,12000,,,4-way
@@ -298,15 +298,15 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Exit Alt,Depl Alt,Delay (s),Notes
 1469,2012-08-18,Perris,Twin Otter,RW,12500,,,5-way w/Darryld/MarySantAngelo
 
 1470,2012-08-18,Perris,Twin Otter,RW,12500,,,4-way w/Darryd/MikeMuscat/Keith
-1471,2012-08-25,Mile-Hi,Twin Otter,RW,15000,,,23-way "Whacker" - 3 points (Jim's Big-Way weekend)
-1472,2012-08-25,Mile-Hi,Twin Otter,RW,15000,,,23-way "Whacker" - 4 points
-1473,2012-08-25,Mile-Hi,Twin Otter,RW,15000,,,24-way "Diamond Dogs" - 2 points
-1474,2012-08-25,Mile-Hi,Twin Otter,RW,15000,,,24-way "Diamond Dogs" - not complete
-1475,2012-08-26,Mile-Hi,Twin Otter,RW,15000,,,24-way "Traci's Tirade" - 2 points
+1471,2012-08-25,Mile-Hi,Twin Otter,RW,15000,,,"23-way ""Whacker"" - 3 points (Jim's Big-Way weekend)"
+1472,2012-08-25,Mile-Hi,Twin Otter,RW,15000,,,"23-way ""Whacker"" - 4 points"
+1473,2012-08-25,Mile-Hi,Twin Otter,RW,15000,,,"24-way ""Diamond Dogs"" - 2 points"
+1474,2012-08-25,Mile-Hi,Twin Otter,RW,15000,,,"24-way ""Diamond Dogs"" - not complete"
+1475,2012-08-26,Mile-Hi,Twin Otter,RW,15000,,,"24-way ""Traci's Tirade"" - 2 points"
 
-1476,2012-08-26,Mile-Hi,Twin Otter,RW,15000,,,24-way "Traci's Tirade" - 2 points
-1477,2012-08-26,Mile-Hi,Twin Otter,RW,15000,,,24-way "Bipolar" - 1 point - nice!
-1478,2012-08-26,Mile-Hi,Twin Otter,RW,15000,,,24-way "Whacker" - 2 points
+1476,2012-08-26,Mile-Hi,Twin Otter,RW,15000,,,"24-way ""Traci's Tirade"" - 2 points"
+1477,2012-08-26,Mile-Hi,Twin Otter,RW,15000,,,"24-way ""Bipolar"" - 1 point - nice!"
+1478,2012-08-26,Mile-Hi,Twin Otter,RW,15000,,,"24-way ""Whacker"" - 2 points"
 1479,2012-09-16,Mile-Hi,Twin Otter,RW,12500,,,11-way w/Jim
 1480,2012-09-16,Mile-Hi,Twin Otter,RW,12500,,,10-way w/Jim
 1481,2012-09-16,Mile-Hi,Twin Otter,RW,12500,,,9-way w/Jim

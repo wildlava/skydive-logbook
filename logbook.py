@@ -74,6 +74,11 @@ if '--new-only' in sys.argv:
 else:
     new_jumps_only = False
 
+if '--fix-files' in sys.argv:
+    fix_files = True
+else:
+    fix_files = False
+
 if '--header' in sys.argv:
     header = True
 else:
@@ -115,11 +120,15 @@ jumps = {}
 # Ingest data from old logbooks
 #
 fp = open('first_logbooks.csv', 'r')
+if fix_files:
+    fp_new = open('first_logbooks_new.csv', 'w')
 
 first_jumps = {}
 for line in fp:
     line = line.strip()
     if line == '':
+        if fix_files:
+            print(line, file=fp_new)
         continue
 
     items = line.split(',', 5)
@@ -132,6 +141,8 @@ for line in fp:
         #    items.insert(10, 'Cutaway')
         #
         #print(','.join(items))
+        if fix_files:
+            print(line, file=fp_new)
         continue
 
     jump_num = int(items[0])
@@ -154,9 +165,23 @@ for line in fp:
     else:
         sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in first_logbooks')
 
+    # Fix quoting on notes field
+    notes = items[-1]
+    if notes.startswith('"') and notes.endswith('"'):
+        notes = notes[1:-1]
+    notes = notes.replace('""', '"')
+    items[-1] = notes
+
+    if fix_files:
+        if ',' in notes or '"' in notes:
+            notes = '"' + notes.replace('"', '""') + '"'
+        print(str(jump_num) + ',' + ','.join(tuple(items[1:5]) + (notes,)), file=fp_new)
+
     first_jumps[jump_num] = tuple(items[1:])
 
 fp.close()
+if fix_files:
+    fp_new.close()
 
 fp = open('logbook.dat', 'r')
 
@@ -207,10 +232,14 @@ fp.close()
 # Ingest data manually entered from last paper logbook
 #
 fp = open('last_logbook.csv', 'r')
+if fix_files:
+    fp_new = open('last_logbook_new.csv', 'w')
 
 for line in fp:
     line = line.strip()
     if line == '':
+        if fix_files:
+            print(line, file=fp_new)
         continue
 
     items = line.split(',', 8)
@@ -223,6 +252,8 @@ for line in fp:
         #    items.insert(10, 'Cutaway')
         #
         #print(','.join(items))
+        if fix_files:
+            print(line, file=fp_new)
         continue
 
     jump_num = int(items[0])
@@ -231,6 +262,21 @@ for line in fp:
 
     if len(items) != 9:
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in last_logbook')
+
+    #if len(items) != 13:
+    #    sys.exit('Wrong number of columns at jump ' + str(jump_num))
+
+    # Fix quoting on notes field
+    notes = items[-1]
+    if notes.startswith('"') and notes.endswith('"'):
+        notes = notes[1:-1]
+    notes = notes.replace('""', '"')
+    items[-1] = notes
+
+    if fix_files:
+        if ',' in notes or '"' in notes:
+            notes = '"' + notes.replace('"', '""') + '"'
+        print(str(jump_num) + ',' + ','.join(tuple(items[1:8]) + (notes,)), file=fp_new)
 
     items.insert(4, gear_used(jump_num))
 
@@ -250,9 +296,6 @@ for line in fp:
     items.insert(9, '0')
     items.insert(11, 'No')
 
-    #if len(items) != 13:
-    #    sys.exit('Wrong number of columns at jump ' + str(jump_num))
-
     if items[10] == '':
         if items[7] == '':
             items[7] = '2500'
@@ -263,16 +306,22 @@ for line in fp:
     jumps[jump_num] = tuple(items[1:])
 
 fp.close()
+if fix_files:
+    fp_new.close()
 last_old_jump = jump_num
 
 #
 # Ingest data from Skydiving Logbook app
 #
 fp = open('skydiving_logbook.csv', 'r')
+if fix_files:
+    fp_new = open('skydiving_logbook_new.csv', 'w')
 
 for line in fp:
     line = line.strip()
     if line == '':
+        if fix_files:
+            print(line, file=fp_new)
         continue
 
     items = line.split(',', 12)
@@ -285,6 +334,8 @@ for line in fp:
         #    items.insert(10, 'Cutaway')
         #
         #print(','.join(items))
+        if fix_files:
+            print(line, file=fp_new)
         continue
 
     jump_num = int(items[0])
@@ -293,19 +344,24 @@ for line in fp:
         print(items)
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in app data')
 
-    if items[10] == '':
-        # Should not happen for this file
-        sys.exit('odd: missing freefall time at jump ' + str(jump_num) + ' in app data')
-    elif items[7] == '':
-        # Should not happen for this file
-        sys.exit('odd: missing pull altitude at jump ' + str(jump_num) + ' in app data')
-
     # Fix quoting on notes field
     notes = items[-1]
     if notes.startswith('"') and notes.endswith('"'):
         notes = notes[1:-1]
     notes = notes.replace('""', '"')
     items[-1] = notes
+
+    if fix_files:
+        if ',' in notes or '"' in notes:
+            notes = '"' + notes.replace('"', '""') + '"'
+        print(str(jump_num) + ',' + ','.join(tuple(items[1:12]) + (notes,)), file=fp_new)
+
+    if items[10] == '':
+        # Should not happen for this file
+        sys.exit('odd: missing freefall time at jump ' + str(jump_num) + ' in app data')
+    elif items[7] == '':
+        # Should not happen for this file
+        sys.exit('odd: missing pull altitude at jump ' + str(jump_num) + ' in app data')
 
     if jump_num in jumps:
         if jumps[jump_num] != tuple(items[1:]):
@@ -314,6 +370,8 @@ for line in fp:
         jumps[jump_num] = tuple(items[1:])
 
 fp.close()
+if fix_files:
+    fp_new.close()
 
 #
 # Ingest new jumps
