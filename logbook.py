@@ -91,6 +91,10 @@ fp = open('gear.csv', 'r')
 
 gear_log = []
 for line in fp:
+    line = line.strip()
+    if line == '' or not line[0].isdigit():
+        continue
+
     gear_log.append(line.strip().split(','))
 
 fp.close()
