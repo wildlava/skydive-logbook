@@ -385,15 +385,19 @@ try:
         if line == '':
             continue
 
-        items = line.split(',', 12)
+        items = line.split(',', 8)
 
         if not items[0].isdigit():
             continue
 
         jump_num = int(items[0])
+        if jump_num in jumps:
+            sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in new_jumps')
 
-        if len(items) != 13:
+        if len(items) != 9:
             sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in new_jumps')
+
+        items.insert(4, gear_used(jump_num))
 
         if (items[5] == 'RW' or
             items[5] == 'CRW' or
@@ -407,6 +411,10 @@ try:
         else:
             sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in new_jumps')
 
+        items.insert(8, 'Feet')
+        items.insert(9, '0')
+        items.insert(11, 'No')
+
         if items[10] == '':
             if items[7] == '':
                 items[7] = '2700'
@@ -414,13 +422,9 @@ try:
         elif items[7] == '':
             items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
 
-        if jump_num in jumps:
-            if jumps[jump_num] != tuple(items[1:]):
-                sys.exit('Jump info does not match old info at jump ' + str(jump_num) + ' in new jump data')
-        else:
-            jumps[jump_num] = tuple(items[1:])
-            if first_new_jump == None:
-                first_new_jump = jump_num
+        jumps[jump_num] = tuple(items[1:])
+        if first_new_jump == None:
+            first_new_jump = jump_num
 
     fp.close()
 except FileNotFoundError:
