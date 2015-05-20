@@ -450,11 +450,12 @@ for i in sorted(jumps):
 
 if list_jumps:
     if header:
-        if export or csv:
+        if csv:
+            print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Deploy Alt,Altitude Unit,Dist to Target,Delay,Cutaway,Notes')
+        elif export:
             print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Delay (s),Cutaway,Notes')
-            #print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Dist to Target,Delay (s),Cutaway,Notes')
         else:
-            print('Jump #: Date|Drop Zone|Aircraft|Gear|Jump Type|Exit Alt|Depl Alt|Altitude Unit|Delay (s)|Cutaway|Notes')
+            print('Jump #: Date|Drop Zone|Aircraft|Gear|Jump Type|Exit Alt|Deploy Alt|Delay|Notes')
 
     if csv:
         for i in sorted(jumps):
@@ -479,7 +480,7 @@ if list_jumps:
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                print(str(i) + ': ' + '|'.join(jumps[i]))
+                print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:10] + jumps[i][11:12]))
 
 
 if stats:
