@@ -165,12 +165,12 @@ for line in fp:
     else:
         sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in first_logbooks')
 
-    # Fix quoting on notes field
+    # Undo quoting of notes field
     notes = items[-1]
     if notes.startswith('"') and notes.endswith('"'):
         notes = notes[1:-1]
-    notes = notes.replace('""', '"')
-    items[-1] = notes
+        notes = notes.replace('""', '"')
+        items[-1] = notes
 
     if fix_files:
         if ',' in notes or '"' in notes:
@@ -266,12 +266,12 @@ for line in fp:
     #if len(items) != 13:
     #    sys.exit('Wrong number of columns at jump ' + str(jump_num))
 
-    # Fix quoting on notes field
+    # Undo quoting of notes field
     notes = items[-1]
     if notes.startswith('"') and notes.endswith('"'):
         notes = notes[1:-1]
-    notes = notes.replace('""', '"')
-    items[-1] = notes
+        notes = notes.replace('""', '"')
+        items[-1] = notes
 
     if fix_files:
         if ',' in notes or '"' in notes:
@@ -344,12 +344,12 @@ for line in fp:
         print(items)
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in app data')
 
-    # Fix quoting on notes field
+    # Undo quoting of notes field
     notes = items[-1]
     if notes.startswith('"') and notes.endswith('"'):
         notes = notes[1:-1]
-    notes = notes.replace('""', '"')
-    items[-1] = notes
+        notes = notes.replace('""', '"')
+        items[-1] = notes
 
     if fix_files:
         if ',' in notes or '"' in notes:
