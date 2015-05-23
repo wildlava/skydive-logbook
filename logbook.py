@@ -397,6 +397,16 @@ try:
         if len(items) != 9:
             sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in new_jumps')
 
+        # Undo quoting of notes field
+        notes = items[-1]
+        if notes.startswith('"') and notes.endswith('"'):
+            notes = notes[1:-1]
+            notes = notes.replace('""', '"')
+            items[-1] = notes
+        else:
+            if ',' in notes or '"' in notes:
+                sys.exit('Notes field needs proper quoting at jump ' + str(jump_num) + ' in new_jumps')
+
         items.insert(4, gear_used(jump_num))
 
         if (items[5] == 'RW' or
