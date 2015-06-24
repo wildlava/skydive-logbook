@@ -51,10 +51,10 @@ def alt_from_time(ealt, t, jump_type):
 
 def gear_used(jump_num):
     gear = ''
-    for gear_log_entry in gear_log:
-        if int(gear_log_entry[0]) > jump_num:
+    for i in sorted(gear_log):
+        if i > jump_num:
             break
-        gear = gear_log_entry[1]
+        gear = gear_log[i][0]
 
     return gear
 
@@ -104,13 +104,18 @@ else:
 #
 fp = open('gear.csv', 'r')
 
-gear_log = []
+gear_log = {}
 for line in fp:
     line = line.strip()
-    if line == '' or not line[0].isdigit():
+    if line == '':
         continue
 
-    gear_log.append(line.strip().split(','))
+    items = line.strip().split(',', 1)
+
+    if not items[0].isdigit():
+        continue
+
+    gear_log[int(items[0])] = items[1:]
 
 fp.close()
 
@@ -188,7 +193,6 @@ fp = open('logbook.dat', 'r')
 jump_num = 1
 
 date = ''
-gear = ''
 for line in fp:
     location = ''
     aircraft = ''
