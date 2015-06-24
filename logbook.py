@@ -59,6 +59,20 @@ def gear_used(jump_num):
     return gear
 
 
+def had_reserve_ride(jump_num):
+    if jump_num in reserve_ride_log:
+        return 'Yes'
+
+    return 'No'
+
+
+def had_cutaway(jump_num):
+    if jump_num in reserve_ride_log:
+        return reserve_ride_log[jump_num][0]
+
+    return 'No'
+
+
 if '--list' in sys.argv:
     list_jumps = True
 else:
@@ -116,6 +130,26 @@ for line in fp:
         continue
 
     gear_log[int(items[0])] = items[1:]
+
+fp.close()
+
+#
+# Ingest reserve ride data
+#
+fp = open('reserve_rides.csv', 'r')
+
+reserve_ride_log = {}
+for line in fp:
+    line = line.strip()
+    if line == '':
+        continue
+
+    items = line.strip().split(',', 2)
+
+    if not items[0].isdigit():
+        continue
+
+    reserve_ride_log[int(items[0])] = items[1:]
 
 fp.close()
 
@@ -224,9 +258,7 @@ for line in fp:
             jump_type = first_jumps[jump_num][3]
             notes = first_jumps[jump_num][4]
 
-        gear = gear_used(jump_num)
-
-        jumps[jump_num] = (date, location, aircraft, gear, jump_type, str(exit_alt), str(deploy_alt), 'Feet', '0', str(freefall_time), 'No', notes)
+        jumps[jump_num] = (date, location, aircraft, gear_used(jump_num), jump_type, str(exit_alt), str(deploy_alt), 'Feet', '0', str(freefall_time), had_reserve_ride(jump_num), had_cutaway(jump_num), notes)
 
         jump_num += 1
 
@@ -298,7 +330,8 @@ for line in fp:
 
     items.insert(8, 'Feet')
     items.insert(9, '0')
-    items.insert(11, 'No')
+    items.insert(11, had_reserve_ride(jump_num))
+    items.insert(12, had_cutaway(jump_num))
 
     if items[10] == '':
         if items[7] == '':
@@ -380,7 +413,8 @@ for line in fp:
 
     items.insert(8, 'Feet')
     items.insert(9, '0')
-    items.insert(11, 'No')
+    items.insert(11, had_reserve_ride(jump_num))
+    items.insert(12, had_cutaway(jump_num))
 
     if items[10] == '':
         if items[7] == '':
@@ -434,13 +468,18 @@ try:
         notes = items[-1]
         if notes.startswith('"') and notes.endswith('"'):
             notes = notes[1:-1]
-            notes = notes.replace('""', '"')
-            items[-1] = notes
+        # Note: The app does not obey the rule that requires quoting of
+        #       strings containing double quotes, so we always have to
+        #       convert double quote pairs to double quotes.
+        notes = notes.replace('""', '"')
+        items[-1] = notes
 
         if fix_files:
             if ',' in notes or '"' in notes:
                 notes = '"' + notes.replace('"', '""') + '"'
             print(str(jump_num) + ',' + ','.join(tuple(items[1:12]) + (notes,)), file=fp_new)
+
+        items.insert(11, had_reserve_ride(jump_num))
 
         if items[10] == '':
             # Should not happen for this file
@@ -511,7 +550,8 @@ try:
 
         items.insert(8, 'Feet')
         items.insert(9, '0')
-        items.insert(11, 'No')
+        items.insert(11, had_reserve_ride(jump_num))
+        items.insert(12, had_cutaway(jump_num))
 
         if items[10] == '':
             if items[7] == '':
@@ -533,7 +573,7 @@ last_jump_num = -1
 last_timestamp = -1
 
 for i in sorted(jumps):
-    if len(jumps[i]) != 12:
+    if len(jumps[i]) != 13:
         sys.exit('Wrong number of columns at jump ' + str(i))
 
     if last_jump_num != -1 and i != (last_jump_num + 1):
@@ -549,7 +589,7 @@ for i in sorted(jumps):
 if list_jumps:
     if header:
         if csv:
-            print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Deploy Alt,Altitude Unit,Dist to Target,Delay,Cutaway,Notes')
+            print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Deploy Alt,Altitude Unit,Dist to Target,Delay,Reserve Ride,Cutaway,Notes')
         elif export:
             print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Delay (s),Cutaway,Notes')
         else:
@@ -560,25 +600,25 @@ if list_jumps:
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                notes = jumps[i][11]
+                notes = jumps[i][12]
                 if ',' in notes or '"' in notes:
                     notes = '"' + notes.replace('"', '""') + '"'
-                print(str(i) + ',' + ','.join(jumps[i][:11] + (notes,)))
+                print(str(i) + ',' + ','.join(jumps[i][:12] + (notes,)))
     elif export:
         for i in sorted(jumps):
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                notes = jumps[i][11]
+                notes = jumps[i][12]
                 if ',' in notes or '"' in notes:
                     notes = '"' + notes.replace('"', '""') + '"'
-                print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:11] + (notes,)))
+                print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:10] + jumps[i][11:12] + (notes,)))
     else:
         for i in sorted(jumps):
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:10] + jumps[i][11:12]))
+                print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:10] + jumps[i][12:13]))
 
 
 if stats:
@@ -597,6 +637,7 @@ if stats:
     total_freefall_seconds = 0
     total_freefall_feet = 0
     jump_types_done = []
+    num_reserve_rides = 0
     num_cutaways = 0
     highest_jump = 0
     lowest_pull = -1
@@ -611,7 +652,8 @@ if stats:
         freefall_seconds = int(jumps[i][9])
         total_freefall_seconds += freefall_seconds
         total_freefall_feet += int(jumps[i][5]) - int(jumps[i][6])
-        num_cutaways += jumps[i][10] != 'No'
+        num_reserve_rides += jumps[i][10] != 'No'
+        num_cutaways += jumps[i][11] != 'No'
         exit_alt = int(jumps[i][5])
         if exit_alt > highest_jump:
             highest_jump = exit_alt
@@ -646,6 +688,8 @@ if stats:
     print('Total freefall distance: '.ljust(left_width) +
           ('%d miles, %d feet' % (total_freefall_miles,
                                   total_freefall_feet % 5280)))
+
+    print('Total reserve rides: '.ljust(left_width) + str(num_reserve_rides))
 
     print('Total cutaways: '.ljust(left_width) + str(num_cutaways))
 
