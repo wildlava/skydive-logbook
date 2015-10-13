@@ -670,9 +670,9 @@ if stats:
                                   jump_time.tm_mday)
         if jump_date.year == today.year:
             jumps_this_cal_year += 1
-        if jump_date >= year_ago:
+        if jump_date > year_ago:
             jumps_past_year += 1
-        if jump_date >= month_ago:
+        if jump_date > month_ago:
             jumps_past_month += 1
 
     left_width = 32
