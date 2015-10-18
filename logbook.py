@@ -642,6 +642,7 @@ if stats:
     highest_jump = 0
     lowest_pull = -1
     longest_freefall_time = 0
+    last_jump_date = None
     jumps_this_cal_year = 0
     jumps_past_year = 0
     jumps_past_month = 0
@@ -668,6 +669,7 @@ if stats:
         jump_date = datetime.date(jump_time.tm_year,
                                   jump_time.tm_mon,
                                   jump_time.tm_mday)
+        last_jump_date = jump_date
         if jump_date.year == today.year:
             jumps_this_cal_year += 1
         if jump_date > year_ago:
@@ -701,6 +703,11 @@ if stats:
     print('Highest jump: '.ljust(left_width) + str(highest_jump) + ' feet')
 
     print('Lowest pull: '.ljust(left_width) + str(lowest_pull) + ' feet')
+
+    if last_jump_date:
+        print('Date of last jump: '.ljust(left_width) + last_jump_date.strftime('%A, %b %d, %Y').replace(' 0', ' '))
+    else:
+        print('Date of last jump: '.ljust(left_width) + 'Never')
 
     print('Jumps this calendar year: '.ljust(left_width) + str(jumps_this_cal_year))
 
