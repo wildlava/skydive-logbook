@@ -569,18 +569,18 @@ except FileNotFoundError:
     pass
 
 # Check for errors in log data
-last_jump_num = -1
-last_timestamp = -1
+last_jump_num = 0
+last_timestamp = None
 
 for i in sorted(jumps):
     if len(jumps[i]) != 13:
         sys.exit('Wrong number of columns at jump ' + str(i))
 
-    if last_jump_num != -1 and i != (last_jump_num + 1):
-        sys.exit('Jump numbers not monatomically increasing at jump ' + str(i))
+    if i != (last_jump_num + 1):
+        sys.exit('Jump number not in sequence at jump ' + str(i))
 
     timestamp = calendar.timegm(time.strptime(jumps[i][0], '%Y-%m-%d'))
-    if last_timestamp != -1 and timestamp < last_timestamp:
+    if last_timestamp != None and timestamp < last_timestamp:
         sys.exit('Jump date goes back in time at jump ' + str(i))
 
     last_jump_num = i
