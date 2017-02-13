@@ -591,7 +591,7 @@ if list_jumps:
         if csv:
             print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Deploy Alt,Altitude Unit,Dist to Target,Delay,Reserve Ride,Cutaway,Notes')
         elif export:
-            print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Depl Alt,Altitude Unit,Delay (s),Cutaway,Notes')
+            print('Jump Number,Date,Location,Aircraft,Gear,Jump Type,Exit Alt,Deployment Alt,Altitude Unit,Delay (sec),Distance to Target,Cutaway,Notes')
         else:
             print('Jump #: Date|Drop Zone|Aircraft|Gear|Jump Type|Exit Alt|Deploy Alt|Delay|Notes')
 
@@ -612,7 +612,7 @@ if list_jumps:
                 notes = jumps[i][12]
                 if ',' in notes or '"' in notes:
                     notes = '"' + notes.replace('"', '""') + '"'
-                print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + jumps[i][9:10] + jumps[i][11:12] + (notes,)))
+                print(str(i) + ',' + ','.join(jumps[i][:7] + ('ft',) + ('0',) + jumps[i][9:10] + jumps[i][11:12] + (notes,)))
     else:
         for i in sorted(jumps):
             if ((not old_jumps_only and not new_jumps_only) or
