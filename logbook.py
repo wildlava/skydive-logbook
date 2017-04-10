@@ -630,9 +630,13 @@ if stats:
     #month_ago = datetime.date((today.year - 1) if today.month == 1 else today.year,
     #                          12 if today.month == 1 else (today.month - 1),
     #                          today.day)
-    month_ago = datetime.date(today.year - (today.month == 1),
-                              12 if today.month == 1 else (today.month - 1),
-                              today.day)
+    month_ago_year = today.year - (today.month == 1)
+    month_ago_month = 12 if today.month == 1 else (today.month - 1)
+    month_ago_day = min(today.day, calendar.monthrange(month_ago_year,
+                                                       month_ago_month)[1])
+    month_ago = datetime.date(month_ago_year,
+                              month_ago_month,
+                              month_ago_day)
 
     total_freefall_seconds = 0
     total_freefall_feet = 0
