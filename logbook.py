@@ -628,9 +628,6 @@ if stats:
 
     today = datetime.date.today()
     year_ago = datetime.date(today.year - 1, today.month, today.day)
-    #month_ago = datetime.date((today.year - 1) if today.month == 1 else today.year,
-    #                          12 if today.month == 1 else (today.month - 1),
-    #                          today.day)
     month_ago_year = today.year - (today.month == 1)
     month_ago_month = 12 if today.month == 1 else (today.month - 1)
     month_ago_day = min(today.day, calendar.monthrange(month_ago_year,
