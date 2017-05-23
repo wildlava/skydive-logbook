@@ -646,6 +646,7 @@ if stats:
     longest_freefall_time = 0
     last_jump_date = None
     jumps_this_cal_year = 0
+    jumps_last_cal_year = 0
     jumps_past_year = 0
     jumps_past_month = 0
     for i in sorted(jumps):
@@ -674,12 +675,14 @@ if stats:
         last_jump_date = jump_date
         if jump_date.year == today.year:
             jumps_this_cal_year += 1
+        if jump_date.year == (today.year - 1):
+            jumps_last_cal_year += 1
         if jump_date > year_ago:
             jumps_past_year += 1
         if jump_date > month_ago:
             jumps_past_month += 1
 
-    left_width = 32
+    left_width = 40
     #right_width = 32
 
     print('Total jumps: '.ljust(left_width) + str(len(jumps)))
@@ -711,7 +714,9 @@ if stats:
     else:
         print('Date of last jump: '.ljust(left_width) + 'Never')
 
-    print('Jumps this calendar year: '.ljust(left_width) + str(jumps_this_cal_year))
+    print(('Jumps this calendar year (%d): ' % today.year).ljust(left_width) + str(jumps_this_cal_year))
+
+    print(('Jumps last calendar year (%d): ' % (today.year - 1)).ljust(left_width) + str(jumps_last_cal_year))
 
     print('Jumps in the past year: '.ljust(left_width) + str(jumps_past_year))
 
