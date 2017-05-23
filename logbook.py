@@ -624,7 +624,7 @@ if list_jumps:
 
 if stats:
     if list_jumps:
-        print('')
+        print()
 
     today = datetime.date.today()
     year_ago = datetime.date(today.year - 1, today.month, today.day)
@@ -722,7 +722,7 @@ if stats:
 
     print('Jumps in the past month: '.ljust(left_width) + str(jumps_past_month))
 
-    print('')
+    print()
 
     print('Jump types done:')
     print('    ' + ', '.join(jump_types_done))
