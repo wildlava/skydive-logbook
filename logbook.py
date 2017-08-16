@@ -178,12 +178,15 @@ if fix_files:
     fp_new = open('first_logbooks_new.csv', 'w')
 
 first_jumps = {}
+last_jump_num = 0
 for line in fp:
     line = line.strip()
     if line == '':
         if fix_files:
             print(line, file=fp_new)
         continue
+    elif line == '# gap':
+        last_jump_num = -1
 
     items = line.split(',', 5)
 
@@ -202,6 +205,8 @@ for line in fp:
     jump_num = int(items[0])
     if jump_num in first_jumps:
         sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in first_logbooks')
+    if last_jump_num != -1 and jump_num != (last_jump_num + 1):
+        sys.exit('Jump number not in sequence at jump ' + str(jump_num) + ' in first_logbooks')
 
     if len(items) != 6:
         sys.exit('Wrong number of columns at jump ' + str(jump_num))
@@ -232,6 +237,8 @@ for line in fp:
         print(str(jump_num) + ',' + ','.join(tuple(items[1:5]) + (notes,)), file=fp_new)
 
     first_jumps[jump_num] = tuple(items[1:])
+
+    last_jump_num = jump_num
 
 fp.close()
 if fix_files:
