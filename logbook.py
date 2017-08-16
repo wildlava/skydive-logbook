@@ -185,7 +185,7 @@ for line in fp:
         if fix_files:
             print(line, file=fp_new)
         continue
-    elif line == '# gap':
+    elif line.startswith('# gap'):
         last_jump_num = -1
 
     items = line.split(',', 5)
