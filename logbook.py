@@ -247,42 +247,43 @@ if fix_files:
 fp = open('logbook.dat', 'r')
 
 jump_num = 1
-
 date = ''
 for line in fp:
-    location = ''
-    aircraft = ''
-    jump_type = ''
-    notes = ''
+    if jump_num > 1207:
+        break
 
-    if jump_num < 1208:
-        items = line.strip().split()
-        exit_alt = int(items[0])
-        freefall_time = int(items[1])
-        if freefall_time < 0:
+    items = line.strip().split()
+    exit_alt = int(items[0])
+    freefall_time = int(items[1])
+    if freefall_time < 0:
+        deploy_alt = 2500
+        freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
+    else:
+        deploy_alt = alt_from_time(exit_alt, freefall_time, FREEFALL_PROFILE_HORIZONTAL)
+        if jump_num < 100 and deploy_alt < 2500 and exit_alt >= 3000:
             deploy_alt = 2500
             freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-        else:
-            deploy_alt = alt_from_time(exit_alt, freefall_time, FREEFALL_PROFILE_HORIZONTAL)
-            if jump_num < 100 and deploy_alt < 2500 and exit_alt >= 3000:
-                deploy_alt = 2500
-                freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-            elif deploy_alt < 2200 and exit_alt >= 3000:
-                deploy_alt = 2200
-                freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-            #if deploy_alt < 2500:
-            #    print('*************************************************************')
+        elif deploy_alt < 2200 and exit_alt >= 3000:
+            deploy_alt = 2200
+            freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
+        #if deploy_alt < 2500:
+        #    print('*************************************************************')
 
-        if jump_num in first_jumps:
-            date = first_jumps[jump_num][0]
-            location = first_jumps[jump_num][1]
-            aircraft = first_jumps[jump_num][2]
-            jump_type = first_jumps[jump_num][3]
-            notes = first_jumps[jump_num][4]
+    if jump_num in first_jumps:
+        date = first_jumps[jump_num][0]
+        location = first_jumps[jump_num][1]
+        aircraft = first_jumps[jump_num][2]
+        jump_type = first_jumps[jump_num][3]
+        notes = first_jumps[jump_num][4]
+    else:
+        location = ''
+        aircraft = ''
+        jump_type = ''
+        notes = ''
 
-        jumps[jump_num] = (date, location, aircraft, gear_used(jump_num), jump_type, str(exit_alt), str(deploy_alt), 'Feet', '0', str(freefall_time), had_reserve_ride(jump_num), had_cutaway(jump_num), notes)
+    jumps[jump_num] = (date, location, aircraft, gear_used(jump_num), jump_type, str(exit_alt), str(deploy_alt), 'Feet', '0', str(freefall_time), had_reserve_ride(jump_num), had_cutaway(jump_num), notes)
 
-        jump_num += 1
+    jump_num += 1
 
 fp.close()
 
