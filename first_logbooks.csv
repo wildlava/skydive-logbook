@@ -101,7 +101,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 99,1990-04-27,Pepperell,Cessna 182,RW,4-way w/Q/Howard/Zach
 100,1990-04-27,Pepperell,Cessna 182,RW,4-way w/Q/Howard/Zach
 
-# gap
+# gap,,,,,
 
 1124,1996-07-14,Pepperell,Twin Otter,RW,5-way w/Rox
 1125,1996-07-14,Pepperell,Twin Otter,RW,4-way w/Rox
@@ -110,26 +110,26 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 1128,1996-08-31,Pepperell,Twin Otter,RW,6-way w/Ed
 1129,1996-08-31,Pepperell,Twin Otter,RW,6-way w/Jennie/Mania/Ed/Eric/Rick
 
-1130,1996-09-01,Pepperell,Twin Otter,RW,6-way "Super-position" w/Tara/Mike/Dave/Shireen/Heather
-1131,1996-09-01,Pepperell,Twin Otter,RW,4-way w/Shireen/Heather/Hubert - Chinese Tee, Crossbow, Opal, Cataccord - 11 points
+1130,1996-09-01,Pepperell,Twin Otter,RW,"6-way ""Super-position"" w/Tara/Mike/Dave/Shireen/Heather"
+1131,1996-09-01,Pepperell,Twin Otter,RW,"4-way w/Shireen/Heather/Hubert - Chinese Tee, Crossbow, Opal, Cataccord - 11 points"
 1132,1996-09-04,Pepperell,Twin Otter,RW,10-way
 1133,1996-09-04,Pepperell,Twin Otter,RW,15-way spider dive w/Eric
-1134,1996-09-21,Pepperell,Twin Otter,RW,4-way w/Shireen/Heather/DaveG - open acc to stairstep diamond, molar, star 360 star - cranking! ~22 points
-1135,1996-09-21,Pepperell,Twin Otter,RW,6-way "Superposition" w/Rox/Shireen/Heather/Dave/Q
+1134,1996-09-21,Pepperell,Twin Otter,RW,"4-way w/Shireen/Heather/DaveG - open acc to stairstep diamond, molar, star 360 star - cranking! ~22 points"
+1135,1996-09-21,Pepperell,Twin Otter,RW,"6-way ""Superposition"" w/Rox/Shireen/Heather/Dave/Q"
 
-1136,1996-09-21,Pepperell,Twin Otter,RW,4-way w/Heather/Rick/Shireen - donut 540 donut, open stairstep 360 compressed stairstep - ~13 points
-1137,1996-09-21,Pepperell,Twin Otter,RW,4-way w/Rick/Heather/Shireen - Hard! - Blackhole to bipole, bipole to donut - ~10 points
+1136,1996-09-21,Pepperell,Twin Otter,RW,"4-way w/Heather/Rick/Shireen - donut 540 donut, open stairstep 360 compressed stairstep - ~13 points"
+1137,1996-09-21,Pepperell,Twin Otter,RW,"4-way w/Rick/Heather/Shireen - Hard! - Blackhole to bipole, bipole to donut - ~10 points"
 1138,1996-10-13,Orange,King Air,RW,w/Jim/etc.
 1139,1996-10-13,Orange,King Air,RW,8-way
 1140,1996-10-13,Orange,King Air,RW,4-way w/FKSteve/Dave/Jack
 1141,1996-10-13,Orange,King Air,RW,4-way w/FKSteve/Dave/Jack
 
-1142,1997-04-26,Orange,Cessna 182,RW,4-way w/Brian/Derek/Jack - meeker, open, marquee
+1142,1997-04-26,Orange,Cessna 182,RW,"4-way w/Brian/Derek/Jack - meeker, open, marquee"
 1143,1997-05-17,Turners Falls,Cessna 182,RW,Solo
 1144,1997-05-18,Pepperell,Twin Otter,RW,w/Sally/etc.
 1145,1997-05-18,Pepperell,Twin Otter,RW,w/Sally/etc.
 1146,1997-05-24,Orange,King Air,RW,w/Ira/Tim/Dave - 14 points!
-1147,1997-05-24,Orange,King Air,RW,w/Joanne - rotating spider (well, with a round in the middle) - 3 points
+1147,1997-05-24,Orange,King Air,RW,"w/Joanne - rotating spider (well, with a round in the middle) - 3 points"
 
 1148,1997-05-24,Orange,King Air,RW,w/Joanne/John/?
 1149,1997-05-24,Orange,King Air,RW,Hot 4-way w/Dave/Ira/Tim
@@ -168,7 +168,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 
 1178,1998-01-25,Space Center,Caravan,RW,3-way w/Buddy/?
 1179,1998-01-25,Space Center,Caravan,Freestyle,Freestyle! (solo)
-1180,1998-04-18,Pepperell,Twin Otter,RW,12-way w/EdT/Greg/Jim/Jenny - cool, but very windy
+1180,1998-04-18,Pepperell,Twin Otter,RW,"12-way w/EdT/Greg/Jim/Jenny - cool, but very windy"
 1181,1998-04-29,Pepperell,Twin Otter,RW,3-way w/Civie/Derek - Cool - got through whole thing
 1182,1998-04-29,Pepperell,Twin Otter,RW,5-way w/Civie/Ed/Jim/Rick - Funnel exit!
 1183,1998-05-13,Pepperell,Twin Otter,RW,10-way w/Ed/Rox/etc.
@@ -192,7 +192,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 1198,1998-08-15,Lost Prairie,Cessna 182,RW,Awesome 3-way w/Fred/Joanne (Fred is DZO)
 1199,1998-09-05,Lake Elsinore,Twin Otter,RW,20-way (organizer: Jim Wallace)
 1200,1998-09-05,Lake Elsinore,Twin Otter,RW,16-way
-1201,1998-09-05,Lake Elsinore,Twin Otter,RW,Awesome 4-way w/JulieB/Barbara/Paula - meeker, bipole, satellite, compressed
+1201,1998-09-05,Lake Elsinore,Twin Otter,RW,"Awesome 4-way w/JulieB/Barbara/Paula - meeker, bipole, satellite, compressed"
 
 1202,1998-09-12,Eloy,Twin Otter,RW,No-suit 2-way w/Joanne
 1203,1998-10-11,Palatka,Cessna 182,RW,2-way w/Kat
