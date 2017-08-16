@@ -113,6 +113,21 @@ if '--stats' in sys.argv:
 else:
     stats = False
 
+if '--types' in sys.argv:
+    show_types = True
+else:
+    show_types = False
+
+if '--aircraft' in sys.argv:
+    show_aircraft = True
+else:
+    show_aircraft = False
+
+if '--dropzones' in sys.argv:
+    show_dropzones = True
+else:
+    show_dropzones = False
+
 #
 # Ingest gear log data
 #
@@ -621,7 +636,6 @@ if list_jumps:
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
                 print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:10] + jumps[i][12:13]))
 
-
 if stats:
     if list_jumps:
         print()
@@ -638,7 +652,6 @@ if stats:
 
     total_freefall_seconds = 0
     total_freefall_feet = 0
-    jump_types_done = []
     num_reserve_rides = 0
     num_cutaways = 0
     highest_jump = 0
@@ -649,10 +662,6 @@ if stats:
     jumps_past_year = 0
     jumps_past_month = 0
     for i in sorted(jumps):
-        jump_type = jumps[i][4]
-        if jump_type != '' and (jump_type not in jump_types_done):
-            jump_types_done.append(jump_type)
-
         freefall_seconds = int(jumps[i][9])
         total_freefall_seconds += freefall_seconds
         total_freefall_feet += int(jumps[i][5]) - int(jumps[i][6])
@@ -727,7 +736,35 @@ if stats:
 
     print('Jumps in the past month: '.ljust(left_width) + str(jumps_past_month))
 
-    print()
+if show_types:
+    jump_types_done = []
+    for i in sorted(jumps):
+        jump_type = jumps[i][4]
+        if jump_type != '' and (jump_type not in jump_types_done):
+            jump_types_done.append(jump_type)
 
     print('Jump types done:')
-    print('    ' + ', '.join(jump_types_done))
+    for jump_type in jump_types_done:
+        print('    ' + jump_type)
+
+if show_aircraft:
+    aircraft_jumped = []
+    for i in sorted(jumps):
+        aircraft = jumps[i][2]
+        if aircraft != '' and (aircraft not in aircraft_jumped):
+            aircraft_jumped.append(aircraft)
+
+    print('Aircraft jumped:')
+    for aircraft in aircraft_jumped:
+        print('    ' + aircraft)
+
+if show_dropzones:
+    dropzones_jumped = []
+    for i in sorted(jumps):
+        dropzone = jumps[i][1]
+        if dropzone != '' and (dropzone not in dropzones_jumped):
+            dropzones_jumped.append(dropzone)
+
+    print('Dropzones jumped:')
+    for dropzone in dropzones_jumped:
+        print('    ' + dropzone)
