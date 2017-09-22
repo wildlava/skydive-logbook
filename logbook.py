@@ -103,6 +103,11 @@ if '--csv' in sys.argv:
 else:
     csv = False
 
+if '--full' in sys.argv:
+    full = True
+else:
+    full = False
+
 if '--export' in sys.argv:
     export = True
 else:
@@ -615,8 +620,10 @@ if list_jumps:
             print('Jump #,Date,Drop Zone,Aircraft,Gear,Jump Type,Exit Alt,Deploy Alt,Altitude Unit,Dist to Target,Delay,Reserve Ride,Cutaway,Notes')
         elif export:
             print('Jump Number,Date,Location,Aircraft,Gear,Jump Type,Exit Alt,Deployment Alt,Altitude Unit,Distance to Target,Freefall Time (sec),Cutaway,Notes')
+        elif full:
+            print('Jump #: Date|Drop Zone|Aircraft|Gear|Jump Type|Exit Alt|Deploy Alt|Delay|Reserve Ride|Cutaway|Notes')
         else:
-            print('Jump #: Date|Drop Zone|Aircraft|Gear|Jump Type|Exit Alt|Deploy Alt|Delay|Notes')
+            print('Jump #: Date|Drop Zone|Notes')
 
     if csv:
         for i in sorted(jumps):
@@ -637,12 +644,18 @@ if list_jumps:
                 if ',' in notes or '"' in notes:
                     notes = '"' + notes.replace('"', '""') + '"'
                 print(str(i) + ',' + ','.join(jumps[i][:7] + (alt_unit_translations[jumps[i][7]],) + jumps[i][8:10] + jumps[i][11:12] + (notes,)))
+    elif full:
+        for i in sorted(jumps):
+            if ((not old_jumps_only and not new_jumps_only) or
+                (old_jumps_only and i <= last_old_jump) or
+                (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
+                print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:13]))
     else:
         for i in sorted(jumps):
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:10] + jumps[i][12:13]))
+                print(str(i) + ': ' + '|'.join(jumps[i][:2] + jumps[i][12:13]))
 
 if stats:
     if list_jumps:
