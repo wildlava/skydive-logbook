@@ -73,65 +73,76 @@ def had_cutaway(jump_num):
     return 'No'
 
 
+list_jumps = False
+old_jumps_only = False
+new_jumps_only = False
+fix_files = False
+header = False
+csv = False
+full = False
+export = False
+stats = False
+show_types = False
+show_aircraft = False
+show_dropzones = False
+
+for option in sys.argv:
+    if not option.startswith('--') and option.startswith('-'):
+        for option_char in option[1:]:
+            if option_char == 'l':
+                list_jumps = True
+            elif option_char == 'h':
+                header = True
+            elif option_char == 'c':
+                csv = True
+            elif option_char == 'f':
+                full = True
+            elif option_char == 'e':
+                export = True
+            elif option_char == 's':
+                stats = True
+            elif option_char == 't':
+                show_types = True
+            elif option_char == 'a':
+                show_aircraft = True
+            elif option_char == 'd':
+                show_dropzones = True
+
 if '--list' in sys.argv:
     list_jumps = True
-else:
-    list_jumps = False
 
 if '--old-only' in sys.argv:
     old_jumps_only = True
-else:
-    old_jumps_only = False
 
 if '--new-only' in sys.argv:
     new_jumps_only = True
-else:
-    new_jumps_only = False
 
 if '--fix-files' in sys.argv:
     fix_files = True
-else:
-    fix_files = False
 
 if '--header' in sys.argv:
     header = True
-else:
-    header = False
 
 if '--csv' in sys.argv:
     csv = True
-else:
-    csv = False
 
 if '--full' in sys.argv:
     full = True
-else:
-    full = False
 
 if '--export' in sys.argv:
     export = True
-else:
-    export = False
 
 if '--stats' in sys.argv:
     stats = True
-else:
-    stats = False
 
 if '--types' in sys.argv:
     show_types = True
-else:
-    show_types = False
 
 if '--aircraft' in sys.argv:
     show_aircraft = True
-else:
-    show_aircraft = False
 
 if '--dropzones' in sys.argv:
     show_dropzones = True
-else:
-    show_dropzones = False
 
 #
 # Ingest gear log data
