@@ -74,9 +74,6 @@ def had_cutaway(jump_num):
 
 
 list_jumps = False
-old_jumps_only = False
-new_jumps_only = False
-fix_files = False
 header = False
 csv = False
 full = False
@@ -86,27 +83,45 @@ show_types = False
 show_aircraft = False
 show_dropzones = False
 
+one_jump_only = None
+latest_jumps_only = None
+range_of_jumps_only = None
+
+old_jumps_only = False
+new_jumps_only = False
+
+fix_files = False
+
 for option in sys.argv:
-    if not option.startswith('--') and option.startswith('-'):
-        for option_char in option[1:]:
-            if option_char == 'l':
-                list_jumps = True
-            elif option_char == 'h':
-                header = True
-            elif option_char == 'c':
-                csv = True
-            elif option_char == 'f':
-                full = True
-            elif option_char == 'e':
-                export = True
-            elif option_char == 's':
-                stats = True
-            elif option_char == 't':
-                show_types = True
-            elif option_char == 'a':
-                show_aircraft = True
-            elif option_char == 'd':
-                show_dropzones = True
+    if option[0].isnumeric():
+        if option.find('-') != -1:
+            range_of_jumps_only = [ int(x) for x in option.split('-', 1) ]
+        else:
+            one_jump_only = int(option)
+    elif not option.startswith('--') and option.startswith('-'):
+        option_string = option[1:]
+        if option_string.isnumeric():
+            latest_jumps_only = int(option_string)
+        else:
+            for option_char in option[1:]:
+                if option_char == 'l':
+                    list_jumps = True
+                elif option_char == 'h':
+                    header = True
+                elif option_char == 'c':
+                    csv = True
+                elif option_char == 'f':
+                    full = True
+                elif option_char == 'e':
+                    export = True
+                elif option_char == 's':
+                    stats = True
+                elif option_char == 't':
+                    show_types = True
+                elif option_char == 'a':
+                    show_aircraft = True
+                elif option_char == 'd':
+                    show_dropzones = True
 
 if '--list' in sys.argv:
     list_jumps = True
@@ -636,8 +651,17 @@ if list_jumps:
         else:
             print('Jump #: Date|Drop Zone|Notes')
 
+    if latest_jumps_only != None:
+        jump_list = sorted(jumps)[-latest_jumps_only:]
+    elif range_of_jumps_only != None:
+        jump_list = sorted(set(range(range_of_jumps_only[0], range_of_jumps_only[1] + 1)) & set(jumps))
+    elif one_jump_only != None:
+        jump_list = list({one_jump_only} & set(jumps))
+    else:
+        jump_list = sorted(jumps)
+
     if csv:
-        for i in sorted(jumps):
+        for i in jump_list:
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
@@ -647,7 +671,7 @@ if list_jumps:
                 print(str(i) + ',' + ','.join(jumps[i][:12] + (notes,)))
     elif export:
         alt_unit_translations = {'Feet': 'ft', 'Meters': 'm'}
-        for i in sorted(jumps):
+        for i in jump_list:
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
@@ -656,13 +680,13 @@ if list_jumps:
                     notes = '"' + notes.replace('"', '""') + '"'
                 print(str(i) + ',' + ','.join(jumps[i][:7] + (alt_unit_translations[jumps[i][7]],) + jumps[i][8:10] + jumps[i][11:12] + (notes,)))
     elif full:
-        for i in sorted(jumps):
+        for i in jump_list:
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
                 print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:13]))
     else:
-        for i in sorted(jumps):
+        for i in jump_list:
             if ((not old_jumps_only and not new_jumps_only) or
                 (old_jumps_only and i <= last_old_jump) or
                 (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
