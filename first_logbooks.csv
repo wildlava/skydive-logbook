@@ -59,7 +59,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 57,1990-02-02,Coolidge,DC-3,RW,3-way w/Hiroto/Harry
 58,1990-02-02,Coolidge,DC-3,RW,2-way w/Hiroto
 59,1990-02-02,Coolidge,DC-3,RW,3-way w/Hiroto/Harry
-60,1990-02-03,Coolidge,Balloon (Raven AX9),RW,Solo from balloon - landed in the peas!
+60,1990-02-03,Coolidge,Balloon (Raven AX9),Hop and Pop,Solo from balloon - landed in the peas!
 61,1990-02-03,Coolidge,DC-3,RW,4-way w/Hiroto/Mike/Jerry
 62,1990-02-03,Coolidge,DC-3,RW,5-way w/Hiroto/Mike/Jerry/Brian
 63,1990-02-03,Coolidge,DC-3,RW,5-way w/Yasmin/Mike/Hiroto/Jerry
@@ -108,7 +108,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 106,1990-05-02,Pepperell,Cessna 182,RW,4-way w/Heather/Hiroto/Howard
 107,1990-05-04,Pepperell,Cessna 182,RW,3-way w/Dave/TomM
 108,1990-05-04,Pepperell,Cessna 182,RW,3-way w/TomS/Hiroto
-109,1990-05-04,Pepperell,Cessna 182,RW,Solo - Freefall...
+109,1990-05-04,Pepperell,Cessna 182,Hop and Pop,Solo - Freefall...
 110,1990-05-04,Pepperell,Cessna 182,RW,3-way w/Hiroto/Howard
 111,1990-05-06,Turners Falls,,RW,2-way w/Scott
 112,1990-05-06,Turners Falls,,RW,2-way w/Hiroto
@@ -119,7 +119,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 117,1990-05-09,Pepperell,Cessna 182,RW,2-way w/Hiroto
 118,1990-05-09,Pepperell,Cessna 182,RW,4-way w/Hiroto/Marc/Q - Q's first cutaway!
 119,1990-05-12,Turners Falls,Cessna 206,RW,5-way w/PK/Jim/Hiroto/Graham
-120,1990-05-12,Turners Falls,Cessna 206,RW,JM practice
+120,1990-05-12,Turners Falls,Cessna 206,Hop and Pop,JM practice: Put out a 10 second delay and Mike Cook on dummy S/L
 121,1990-05-19,The Herd,Caribou,RW,6-way
 122,1990-05-19,The Herd,Caribou,RW,"Solo - figure 8, backloop, figure 8, backloop"
 123,1990-05-19,The Herd,Caribou,RW,Attempted 21-way
@@ -138,22 +138,22 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 136,1990-06-08,Turners Falls,Cessna 182,RW,JM practice: JM & watch 30 second - Freefall...
 137,1990-06-16,Turners Falls,Cessna 206,RW,"JM practice: Kirin - DRCP, Kris - DRCP, Musaki - 15 second"
 138,1990-06-16,Turners Falls,Cessna 182,RW,4-way w/Todd/Todd/Al
-139,1990-06-16,Turners Falls,Cessna 206,RW,JM practice: Dave - FFF
+139,1990-06-16,Turners Falls,Cessna 206,Hop and Pop,JM practice: Dave - FFF
 140,1990-06-16,Turners Falls,Cessna 206,RW,6-way w/EJ/PK/Al/Jim/Tania - 1 point
 141,1990-06-17,Turners Falls,Cessna 206,RW,5-way w/Todd/Jim/Hiroto/PK - 1 point
-142,1990-06-17,Turners Falls,Cessna 206,RW,JM practice: 2 DRCPs
+142,1990-06-17,Turners Falls,Cessna 206,Hop and Pop,JM practice: 2 DRCPs
 143,1990-06-17,Turners Falls,Cessna 206,RW,Tandem chase
 144,1990-06-17,Turners Falls,Cessna 206,RW,9-way (formation load) w/Hiroto/Bobert/Toad/Joyce/PK/Joanne/Jim/Tooth - 1 point
-145,1990-06-20,Turners Falls,Cessna 206,RW,JM practice: Joanne - S/L
-146,1990-06-20,Turners Falls,Cessna 206,RW,"JM practice: Mary - S/L, Joanne - S/L, Bobert - S/L, Tim - 5 second"
+145,1990-06-20,Turners Falls,Cessna 206,Hop and Pop,JM practice: Joanne - S/L
+146,1990-06-20,Turners Falls,Cessna 206,Hop and Pop,"JM practice: Mary - S/L, Joanne - S/L, Bobert - S/L, Tim - 5 second"
 147,1990-06-22,Turners Falls,Cessna 206,RW,"Tandem chase + CRW w/Mike - bi-plane, down-plane"
-148,1990-06-22,Turners Falls,Cessna 182,RW,As JM practice student: 1st PRCP
+148,1990-06-22,Turners Falls,Cessna 182,Static Line,As JM practice student: 1st PRCP
 149,1990-06-22,Turners Falls,Cessna 206,RW,"JM practice: PK - 10 second, Howard - 15 second"
 150,1990-06-22,Turners Falls,Cessna 206,RW,4-way w/Al/PK/Joanne - 2 points
 151,1990-06-22,Turners Falls,Cessna 206,CRW,CRW w/Q - bi-plane
-152,1990-06-24,Turners Falls,Cessna 206,RW,JM evaluation jump: JM'd Bob Murray on DRCP for JCC
-153,1990-06-24,Turners Falls,Cessna 182,RW,As JM evaluation jump student: Bob Murray JM'd me on DRCP for JCC
-154,1990-06-24,Turners Falls,Cessna 206,RW,Solo (early exit) - Mist...
+152,1990-06-24,Turners Falls,Cessna 206,Hop and Pop,JM evaluation jump: JM'd Bob Murray on DRCP for JCC
+153,1990-06-24,Turners Falls,Cessna 182,Static Line,As JM evaluation jump student: Bob Murray JM'd me on DRCP for JCC
+154,1990-06-24,Turners Falls,Cessna 206,Hop and Pop,Solo (early exit) - Mist...
 155,1990-06-27,Pepperell,Cessna 182,RW,4-way w/Hiroto/Scott/Richard - 1 point
 156,1990-06-27,Pepperell,Cessna 182,Hop and Pop,Mr. Bill w/Heather
 157,1990-06-27,Pepperell,Cessna 182,RW,4-way w/Hiroto/HW/JoeB - 1 point
@@ -164,7 +164,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 162,1990-07-07,Turners Falls,Cessna 206,RW,6-way w/Joanne/PK/Theresa/Heather/Bonnie
 163,1990-07-07,Turners Falls,Cessna 206,RW,4-way w/PK/Jane/Wich - 1 point
 164,1990-07-07,Turners Falls,Cessna 182,RW,4-way w/Howard/Jack/Bob - 2 points
-165,1990-07-07,Turners Falls,Cessna 182,RW,"JM: Rick - S/L, Jim - DRCP"
+165,1990-07-07,Turners Falls,Cessna 182,JM,"JM: Rick - S/L, Jim - DRCP"
 166,1990-07-07,Turners Falls,Cessna 206,RW,Night 3-way w/Jim/Bobbert - 4 points - then looked at the beautiful Moon!
 167,1990-07-08,Turners Falls,Cessna 182,RW,3-way w/Bonnie/PK
 168,1990-07-08,Turners Falls,Cessna 182,RW,4-way w/Mike/Kris/Ken
@@ -181,14 +181,14 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 179,1990-07-18,Pepperell,Cessna 182,RW,4-way w/Mike/BobC/Hiroto - 3 points
 180,1990-07-19,Pepperell,Cessna 182,RW,2-way w/Scott
 181,1990-07-19,Pepperell,Cessna 182,RW,"Finally got to my slot after much adu. High, low, you know. I probably even overshot!"
-182,1990-07-21,Turners Falls,Cessna 206,RW,"JM: Bob - DRCP, Jean-Pierre - DRCP + 4-way w/Jay/Hiroto/Leslie - 3 points"
-183,1990-07-21,Turners Falls,Cessna 206,RW,"JM: Dave - S/L, Bill - DRCP, Bob - FFF, Jean-Pierre - FFF"
-184,1990-07-21,Turners Falls,Cessna 206,RW,"JM: Susan - S/L, Gordon - DRCP, Martin - DRCP, Dean - DRCP"
-185,1990-07-21,Turners Falls,Cessna 206,RW,"JM: Dave - FF, Masa - FFF, Dean - FFF, Masaki - 30 second"
+182,1990-07-21,Turners Falls,Cessna 206,JM,"JM: Bob - DRCP, Jean-Pierre - DRCP + 4-way w/Jay/Hiroto/Leslie - 3 points"
+183,1990-07-21,Turners Falls,Cessna 206,JM,"JM: Dave - S/L, Bill - DRCP, Bob - FFF, Jean-Pierre - FFF"
+184,1990-07-21,Turners Falls,Cessna 206,JM,"JM: Susan - S/L, Gordon - DRCP, Martin - DRCP, Dean - DRCP"
+185,1990-07-21,Turners Falls,Cessna 206,JM,"JM: Dave - FF, Masa - FFF, Dean - FFF, Masaki - 30 second"
 186,1990-07-21,Turners Falls,Cessna 206,RW,4-way w/Tania/Tony/Toma - 3 points
 187,1990-07-22,Turners Falls,Cessna 206,RW,"4-way w/Hiroto/PK/Steve - Didn't work, but good exit!"
-188,1990-07-22,Turners Falls,Cessna 182,RW,"JM: Dave - FF, Shawn - 5 second, Rob - 5 second"
-189,1990-07-22,Turners Falls,Cessna 206,RW,JM: Theresa - FJC
+188,1990-07-22,Turners Falls,Cessna 182,JM,"JM: Dave - FF, Shawn - 5 second, Rob - 5 second"
+189,1990-07-22,Turners Falls,Cessna 206,JM,JM: Theresa - FJC
 190,1990-07-28,Lebanon,Twin Otter,RW,8-way
 191,1990-07-28,Lebanon,Twin Otter,RW,12-way w/Hiroto - 1 point
 192,1990-07-28,Lebanon,Twin Otter,RW,8-way
@@ -201,9 +201,9 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 199,1990-08-02,Pepperell,Cessna 182,RW,4-way w/Tim/Jim/Charlie
 200,1990-08-02,Pepperell,Cessna 182,RW,4-way w/Q/HW/Tim + CRW w/Q (landed off)
 201,1990-08-04,Turners Falls,Cessna 206,RW,6-way - Nothing outstanding (staff load)
-202,1990-08-04,Turners Falls,Cessna 206,RW,"JM: Mike - DRCP, Bob - FF, Jean Pierre - 5 second, Ted - 45 second (off status!)"
-203,1990-08-04,Turners Falls,Cessna 182,RW,"JM: Kirin - DRCP, Bob - FF, Jean Pierre - 10 second"
-204,1990-08-04,Turners Falls,Cessna 206,RW,"JM: David - FJC, Ian- S/L, Leah - S/L, Bill - S/L"
+202,1990-08-04,Turners Falls,Cessna 206,JM,"JM: Mike - DRCP, Bob - FF, Jean-Pierre - 5 second, Ted - 45 second (off status!)"
+203,1990-08-04,Turners Falls,Cessna 182,JM,"JM: Kirin - DRCP, Bob - FF, Jean-Pierre - 10 second"
+204,1990-08-04,Turners Falls,Cessna 206,JM,"JM: David - FJC, Ian- S/L, Leah - S/L, Bill - S/L"
 205,1990-08-04,Turners Falls,Cessna 182,RW,4-way w/Mark/Bob/Hiroto - Mark swoop big time.
 206,1990-08-12,Turners Falls,Cessna 182,RW,4-way w/Tooth - 5 points
 207,1990-08-12,Turners Falls,Cessna 182,CRW,4-way CRW w/Heather/Q/Shireen - 2 points - landed bi-plane w/Q
@@ -215,9 +215,9 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 213,1990-08-18,Turners Falls,Cessna 206,CRW,2-way CRW w/Hiroto - Hiroto and I tried a base pin with not much luck.
 214,1990-08-18,Turners Falls,Cessna 182,CRW,4-way CRW w/Chick/Mario/Hiroto - Rotations - 3 points
 215,1990-08-26,Turners Falls,Cessna 206,CRW,3-way CRW w/Q/PK - 3 points - then bi-plane + down-plane w/Q - Yaa Hoo
-216,1990-08-26,Turners Falls,Cessna 206,RW,"JM: Roger - FJC, Bob - FJC, Bob - DRCP, Niel - DRCP"
+216,1990-08-26,Turners Falls,Cessna 206,JM,"JM: Roger - FJC, Bob - FJC, Bob - DRCP, Niel - DRCP"
 217,1990-08-26,Turners Falls,Cessna 206,CRW,3-way CRW w/Q/PK - 1 point
-218,1990-08-26,Turners Falls,Cessna 206,RW,"JM: Peter - FJC, Andy - FJC, Thom - FJC, Roland - FJC"
+218,1990-08-26,Turners Falls,Cessna 206,JM,"JM: Peter - FJC, Andy - FJC, Thom - FJC, Roland - FJC"
 219,1990-08-26,Turners Falls,Cessna 206,CRW,4-way CRW w/Mike/Q
 220,1990-08-29,Pepperell,Cessna 182,RW,3-way w/Heather/Butch - 4 points
 
@@ -246,7 +246,7 @@ Jump #,Date,Drop Zone,Aircraft,Jump Type,Notes
 1141,1996-10-13,Orange,King Air,RW,4-way w/FKSteve/Dave/Jack
 
 1142,1997-04-26,Orange,Cessna 182,RW,"4-way w/Brian/Derek/Jack - meeker, open, marquee"
-1143,1997-05-17,Turners Falls,Cessna 182,RW,Solo
+1143,1997-05-17,Turners Falls,Cessna 182,Hop and Pop,Solo
 1144,1997-05-18,Pepperell,Twin Otter,RW,w/Sally/etc.
 1145,1997-05-18,Pepperell,Twin Otter,RW,w/Sally/etc.
 1146,1997-05-24,Orange,King Air,RW,w/Ira/Tim/Dave - 14 points!
