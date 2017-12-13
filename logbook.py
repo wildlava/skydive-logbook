@@ -11,6 +11,16 @@ vt_tracking = 144.0
 FREEFALL_PROFILE_HORIZONTAL = 0
 FREEFALL_PROFILE_TRACKING = 1
 
+jump_type_profiles = {'RW': FREEFALL_PROFILE_HORIZONTAL,
+                      'CRW': FREEFALL_PROFILE_HORIZONTAL,
+                      'Static Line': FREEFALL_PROFILE_HORIZONTAL,
+                      'Hop and Pop': FREEFALL_PROFILE_HORIZONTAL,
+                      'JM': FREEFALL_PROFILE_HORIZONTAL,
+                      'Sit-Fly': FREEFALL_PROFILE_HORIZONTAL,
+                      'Hybrid': FREEFALL_PROFILE_HORIZONTAL,
+                      'Freestyle': FREEFALL_PROFILE_HORIZONTAL,
+                      'Tracking': FREEFALL_PROFILE_TRACKING}
+
 def time_from_alt(ealt, dalt, jump_type):
     if jump_type == FREEFALL_PROFILE_TRACKING:
         vt = vt_tracking
@@ -242,17 +252,9 @@ for line in fp:
     if len(items) != 6:
         sys.exit('Wrong number of columns at jump ' + str(jump_num))
 
-    if (items[4] == 'RW' or
-        items[4] == 'CRW' or
-        items[4] == 'Static Line' or
-        items[4] == 'Hop and Pop' or
-        items[4] == 'Sit-Fly' or
-        items[4] == 'Hybrid' or
-        items[4] == 'Freestyle'):
-        freefall_profile = FREEFALL_PROFILE_HORIZONTAL
-    elif items[4] == 'Tracking':
-        freefall_profile = FREEFALL_PROFILE_TRACKING
-    else:
+    try:
+        freefall_profile = jump_type_profiles[items[4]]
+    except KeyError:
         sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in first_logbooks')
 
     # Undo quoting of notes field
@@ -370,16 +372,9 @@ for line in fp:
 
     items.insert(4, gear_used(jump_num))
 
-    if (items[5] == 'RW' or
-        items[5] == 'CRW' or
-        items[5] == 'Hop and Pop' or
-        items[5] == 'Sit-Fly' or
-        items[5] == 'Hybrid' or
-        items[5] == 'Freestyle'):
-        freefall_profile = FREEFALL_PROFILE_HORIZONTAL
-    elif items[5] == 'Tracking':
-        freefall_profile = FREEFALL_PROFILE_TRACKING
-    else:
+    try:
+        freefall_profile = jump_type_profiles[items[5]]
+    except KeyError:
         sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in last_logbook')
 
     items.insert(8, 'Feet')
@@ -453,16 +448,9 @@ for line in fp:
 
     items.insert(4, gear_used(jump_num))
 
-    if (items[5] == 'RW' or
-        items[5] == 'CRW' or
-        items[5] == 'Hop and Pop' or
-        items[5] == 'Sit-Fly' or
-        items[5] == 'Hybrid' or
-        items[5] == 'Freestyle'):
-        freefall_profile = FREEFALL_PROFILE_HORIZONTAL
-    elif items[5] == 'Tracking':
-        freefall_profile = FREEFALL_PROFILE_TRACKING
-    else:
+    try:
+        freefall_profile = jump_type_profiles[items[5]]
+    except KeyError:
         sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in current jumps')
 
     items.insert(8, 'Feet')
@@ -590,16 +578,9 @@ try:
 
         items.insert(4, gear_used(jump_num))
 
-        if (items[5] == 'RW' or
-            items[5] == 'CRW' or
-            items[5] == 'Hop and Pop' or
-            items[5] == 'Sit-Fly' or
-            items[5] == 'Hybrid' or
-            items[5] == 'Freestyle'):
-            freefall_profile = FREEFALL_PROFILE_HORIZONTAL
-        elif items[5] == 'Tracking':
-            freefall_profile = FREEFALL_PROFILE_TRACKING
-        else:
+        try:
+            freefall_profile = jump_type_profiles[items[5]]
+        except KeyError:
             sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in new_jumps')
 
         items.insert(8, 'Feet')
