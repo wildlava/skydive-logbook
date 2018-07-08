@@ -268,9 +268,9 @@ for line in fp:
     if fix_files:
         if ',' in notes or '"' in notes:
             notes = '"' + notes.replace('"', '""') + '"'
-        print(str(jump_num) + ',' + ','.join(tuple(items[1:5]) + (notes,)), file=fp_new)
+        print(str(jump_num) + ',' + ','.join(items[1:5] + [notes]), file=fp_new)
 
-    first_jumps[jump_num] = tuple(items[1:])
+    first_jumps[jump_num] = items[1:]
 
     last_jump_num = jump_num
 
@@ -369,7 +369,7 @@ for line in fp:
     if fix_files:
         if ',' in notes or '"' in notes:
             notes = '"' + notes.replace('"', '""') + '"'
-        print(str(jump_num) + ',' + ','.join(tuple(items[1:8]) + (notes,)), file=fp_new)
+        print(str(jump_num) + ',' + ','.join(items[1:8] + [notes]), file=fp_new)
 
     items.insert(4, gear_used(jump_num))
 
@@ -390,7 +390,7 @@ for line in fp:
     elif items[7] == '':
         items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
 
-    jumps[jump_num] = tuple(items[1:])
+    jumps[jump_num] = items[1:]
 
 fp.close()
 if fix_files:
@@ -445,7 +445,7 @@ for line in fp:
     if fix_files:
         if ',' in notes or '"' in notes:
             notes = '"' + notes.replace('"', '""') + '"'
-        print(str(jump_num) + ',' + ','.join(tuple(items[1:8]) + (notes,)), file=fp_new)
+        print(str(jump_num) + ',' + ','.join(items[1:8] + [notes]), file=fp_new)
 
     items.insert(4, gear_used(jump_num))
 
@@ -466,7 +466,7 @@ for line in fp:
     elif items[7] == '':
         items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
 
-    jumps[jump_num] = tuple(items[1:])
+    jumps[jump_num] = items[1:]
 
 fp.close()
 if fix_files:
@@ -520,7 +520,7 @@ try:
         if fix_files:
             if ',' in notes or '"' in notes:
                 notes = '"' + notes.replace('"', '""') + '"'
-            print(str(jump_num) + ',' + ','.join(tuple(items[1:12]) + (notes,)), file=fp_new)
+            print(str(jump_num) + ',' + ','.join(items[1:12] + [notes]), file=fp_new)
 
         items.insert(11, had_reserve_ride(jump_num))
 
@@ -532,10 +532,10 @@ try:
             sys.exit('odd: missing pull altitude at jump ' + str(jump_num) + ' in app data')
 
         if jump_num in jumps:
-            if jumps[jump_num] != tuple(items[1:]):
+            if jumps[jump_num] != items[1:]:
                 sys.exit('Jump info does not match old info at jump ' + str(jump_num) + ' in app data')
         else:
-            jumps[jump_num] = tuple(items[1:])
+            jumps[jump_num] = items[1:]
 
     fp.close()
     if fix_files:
@@ -596,7 +596,7 @@ try:
         elif items[7] == '':
             items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
 
-        jumps[jump_num] = tuple(items[1:])
+        jumps[jump_num] = items[1:]
         if first_new_jump == None:
             first_new_jump = jump_num
 
@@ -650,7 +650,7 @@ if list_jumps:
                 notes = jumps[i][12]
                 if ',' in notes or '"' in notes:
                     notes = '"' + notes.replace('"', '""') + '"'
-                print(str(i) + ',' + ','.join(jumps[i][:12] + (notes,)))
+                print(str(i) + ',' + ','.join(jumps[i][:12] + [notes]))
     elif export:
         alt_unit_translations = {'Feet': 'ft', 'Meters': 'm'}
         for i in jump_list:
@@ -660,7 +660,7 @@ if list_jumps:
                 notes = jumps[i][12]
                 if ',' in notes or '"' in notes:
                     notes = '"' + notes.replace('"', '""') + '"'
-                print(str(i) + ',' + ','.join(jumps[i][:7] + (alt_unit_translations[jumps[i][7]],) + jumps[i][8:10] + jumps[i][11:12] + (notes,)))
+                print(str(i) + ',' + ','.join(jumps[i][:7] + [alt_unit_translations[jumps[i][7]]] + jumps[i][8:10] + jumps[i][11:12] + [notes]))
     elif full:
         for i in jump_list:
             if ((not old_jumps_only and not new_jumps_only) or
