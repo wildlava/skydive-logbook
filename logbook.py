@@ -22,6 +22,26 @@ jump_type_profiles = {'RW': FREEFALL_PROFILE_HORIZONTAL,
                       'Freestyle': FREEFALL_PROFILE_HORIZONTAL,
                       'Tracking': FREEFALL_PROFILE_TRACKING}
 
+normal_exit_altitudes = {'Mile-Hi': (11000, 13999)}
+
+def normal_exit_alt(dropzone):
+    if dropzone in normal_exit_altitudes:
+        minimum = normal_exit_altitudes[dropzone][0]
+        maximum = normal_exit_altitudes[dropzone][1]
+
+        alt_total = 0
+        num_alts = 0
+        for i in jumps:
+            if jumps[i][5] != '' and jumps[i][1] == dropzone:
+                exit_alt = int(jumps[i][5])
+                if exit_alt >= minimum and exit_alt <= maximum:
+                    alt_total += exit_alt
+                    num_alts += 1
+
+        return int(round(alt_total / num_alts, 0))
+    else:
+        return None
+
 def time_from_alt(ealt, dalt, jump_type):
     if jump_type == FREEFALL_PROFILE_TRACKING:
         vt = vt_tracking
@@ -253,11 +273,6 @@ for line in fp:
     if len(items) != 6:
         sys.exit('Wrong number of columns at jump ' + str(jump_num))
 
-    try:
-        freefall_profile = jump_type_profiles[items[4]]
-    except KeyError:
-        sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in first_logbooks')
-
     # Undo quoting of notes field
     notes = items[-1]
     if notes.startswith('"') and notes.endswith('"'):
@@ -373,22 +388,10 @@ for line in fp:
 
     items.insert(4, gear_used(jump_num))
 
-    try:
-        freefall_profile = jump_type_profiles[items[5]]
-    except KeyError:
-        sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in last_logbook')
-
     items.insert(8, 'Feet')
     items.insert(9, '0')
     items.insert(11, had_reserve_ride(jump_num))
     items.insert(12, had_cutaway(jump_num))
-
-    if items[10] == '':
-        if items[7] == '':
-            items[7] = '2500'
-        items[10] = str(time_from_alt(int(items[6]), int(items[7]), freefall_profile))
-    elif items[7] == '':
-        items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
 
     jumps[jump_num] = items[1:]
 
@@ -403,6 +406,8 @@ last_old_jump = jump_num
 fp = open('jumps.csv', 'r')
 if fix_files:
     fp_new = open('jumps_new.csv', 'w')
+
+calculated_exit_alts = {}
 
 for line in fp:
     line = line.strip()
@@ -449,24 +454,19 @@ for line in fp:
 
     items.insert(4, gear_used(jump_num))
 
-    try:
-        freefall_profile = jump_type_profiles[items[5]]
-    except KeyError:
-        sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in current jumps')
-
     items.insert(8, 'Feet')
     items.insert(9, '0')
     items.insert(11, had_reserve_ride(jump_num))
     items.insert(12, had_cutaway(jump_num))
 
-    if items[10] == '':
-        if items[7] == '':
-            items[7] = '2700'
-        items[10] = str(time_from_alt(int(items[6]), int(items[7]), freefall_profile))
-    elif items[7] == '':
-        items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
-
     jumps[jump_num] = items[1:]
+
+    if jumps[jump_num][5] == '':
+        calculated_exit_alt = str(normal_exit_alt(jumps[jump_num][1]))
+        if calculated_exit_alt == None:
+            sys.exit('Exit altitude calculation not supported by at jump ' + str(jump_num) + ' in current jumps')
+        else:
+            calculated_exit_alts[jump_num] = calculated_exit_alt
 
 fp.close()
 if fix_files:
@@ -579,22 +579,10 @@ try:
 
         items.insert(4, gear_used(jump_num))
 
-        try:
-            freefall_profile = jump_type_profiles[items[5]]
-        except KeyError:
-            sys.exit('Invalid jump type at jump ' + str(jump_num) + ' in new_jumps')
-
         items.insert(8, 'Feet')
         items.insert(9, '0')
         items.insert(11, had_reserve_ride(jump_num))
         items.insert(12, had_cutaway(jump_num))
-
-        if items[10] == '':
-            if items[7] == '':
-                items[7] = '2700'
-            items[10] = str(time_from_alt(int(items[6]), int(items[7]), freefall_profile))
-        elif items[7] == '':
-            items[7] = str(alt_from_time(int(items[6]), int(items[10]), freefall_profile))
 
         jumps[jump_num] = items[1:]
         if first_new_jump == None:
@@ -619,8 +607,30 @@ for i in sorted(jumps):
     if last_timestamp != None and timestamp < last_timestamp:
         sys.exit('Jump date goes back in time at jump ' + str(i))
 
+    # Note: Remove the following check for an empty string after all old jumps
+    #       are entered into the system. Also remove the similar checks from
+    #       the code that lists types, aircraft, and dropzones.
+    if jumps[i][4] != '' and (jumps[i][4] not in jump_type_profiles):
+        print(jumps[i])
+        sys.exit('Invalid jump type at jump ' + str(i))
+
     last_jump_num = i
     last_timestamp = timestamp
+
+# Calculate missing values for altitudes and/or freefall times
+for i in jumps:
+    if i in calculated_exit_alts:
+        jumps[i][5] = calculated_exit_alts[i]
+
+    if jumps[i][9] == '':
+        if jumps[i][6] == '':
+            if i < 1569:
+                jumps[i][6] = '2500'
+            else:
+                jumps[i][6] = '2700'
+        jumps[i][9] = str(time_from_alt(int(jumps[i][5]), int(jumps[i][6]), jump_type_profiles[jumps[i][4]]))
+    elif jumps[i][6] == '':
+        jumps[i][6] = str(alt_from_time(int(jumps[i][5]), int(jumps[i][9]), jump_type_profiles[jumps[i][4]]))
 
 if list_jumps:
     if header:
