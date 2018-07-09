@@ -24,16 +24,20 @@ jump_type_profiles = {'RW': FREEFALL_PROFILE_HORIZONTAL,
 
 normal_exit_altitudes = {'Mile-Hi': (11000, 13999)}
 
-def normal_exit_alt(dropzone):
+def normal_exit_alt(i):
+    dropzone = jumps[i][1]
     if dropzone in normal_exit_altitudes:
         minimum = normal_exit_altitudes[dropzone][0]
         maximum = normal_exit_altitudes[dropzone][1]
 
         alt_total = 0
         num_alts = 0
-        for i in jumps:
-            if jumps[i][5] != '' and jumps[i][1] == dropzone:
-                exit_alt = int(jumps[i][5])
+        for j in sorted(jumps):
+            if j >= i:
+                break
+
+            if jumps[j][5] != '' and jumps[j][1] == dropzone:
+                exit_alt = int(jumps[j][5])
                 if exit_alt >= minimum and exit_alt <= maximum:
                     alt_total += exit_alt
                     num_alts += 1
@@ -407,8 +411,6 @@ fp = open('jumps.csv', 'r')
 if fix_files:
     fp_new = open('jumps_new.csv', 'w')
 
-calculated_exit_alts = {}
-
 for line in fp:
     line = line.strip()
     if line == '':
@@ -460,13 +462,6 @@ for line in fp:
     items.insert(12, had_cutaway(jump_num))
 
     jumps[jump_num] = items[1:]
-
-    if jumps[jump_num][5] == '':
-        calculated_exit_alt = str(normal_exit_alt(jumps[jump_num][1]))
-        if calculated_exit_alt == None:
-            sys.exit('Exit altitude calculation not supported by at jump ' + str(jump_num) + ' in current jumps')
-        else:
-            calculated_exit_alts[jump_num] = calculated_exit_alt
 
 fp.close()
 if fix_files:
@@ -618,6 +613,15 @@ for i in sorted(jumps):
     last_timestamp = timestamp
 
 # Calculate missing values for altitudes and/or freefall times
+calculated_exit_alts = {}
+for i in jumps:
+    if jumps[i][5] == '':
+        calculated_exit_alt = str(normal_exit_alt(i))
+        if calculated_exit_alt == None:
+            sys.exit('Exit altitude calculation not supported at jump ' + str(i))
+        else:
+            calculated_exit_alts[i] = calculated_exit_alt
+
 for i in jumps:
     if i in calculated_exit_alts:
         jumps[i][5] = calculated_exit_alts[i]
