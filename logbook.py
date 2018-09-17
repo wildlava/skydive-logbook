@@ -117,6 +117,7 @@ stats = False
 show_types = False
 show_aircraft = False
 show_dropzones = False
+show_gear = False
 
 one_jump_only = None
 latest_jumps_only = None
@@ -157,6 +158,8 @@ for option in sys.argv:
                     show_aircraft = True
                 elif option_char == 'd':
                     show_dropzones = True
+                elif option_char == 'g':
+                    show_gear = True
 
 if '--list' in sys.argv:
     list_jumps = True
@@ -193,6 +196,9 @@ if '--aircraft' in sys.argv:
 
 if '--dropzones' in sys.argv:
     show_dropzones = True
+
+if '--gear' in sys.argv:
+    show_gear = True
 
 #
 # Ingest gear log data
@@ -792,7 +798,7 @@ if show_types:
     jump_types_done = []
     for i in sorted(jumps):
         jump_type = jumps[i][4]
-        if jump_type != '' and (jump_type not in jump_types_done):
+        if jump_type and (jump_type not in jump_types_done):
             jump_types_done.append(jump_type)
 
     print('Jump types done:')
@@ -803,7 +809,7 @@ if show_aircraft:
     aircraft_jumped = []
     for i in sorted(jumps):
         aircraft = jumps[i][2]
-        if aircraft != '' and (aircraft not in aircraft_jumped):
+        if aircraft and (aircraft not in aircraft_jumped):
             aircraft_jumped.append(aircraft)
 
     print('Aircraft jumped:')
@@ -814,9 +820,35 @@ if show_dropzones:
     dropzones_jumped = []
     for i in sorted(jumps):
         dropzone = jumps[i][1]
-        if dropzone != '' and (dropzone not in dropzones_jumped):
+        if dropzone and (dropzone not in dropzones_jumped):
             dropzones_jumped.append(dropzone)
 
     print('Dropzones jumped:')
     for dropzone in dropzones_jumped:
         print('    ' + dropzone)
+
+if show_gear:
+    rigs_jumped = []
+    canopies_jumped = []
+    for i in sorted(jumps):
+        gear = jumps[i][3]
+        if gear:
+            if ' / ' in gear:
+                rig, canopy = gear.split(' / ', 1)
+                if canopy == '[unknown]':
+                    canopy = None
+            else:
+                canopy = gear
+                rig = None
+
+            if rig and (rig not in rigs_jumped):
+                rigs_jumped.append(rig)
+            if canopy and (canopy not in canopies_jumped):
+                canopies_jumped.append(canopy)
+
+    print('Rigs jumped:')
+    for rig in rigs_jumped:
+        print('    ' + rig)
+    print('Canopies jumped:')
+    for canopy in canopies_jumped:
+        print('    ' + canopy)
