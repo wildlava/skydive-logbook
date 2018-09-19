@@ -340,7 +340,7 @@ for line in fp:
         jump_type = ''
         notes = ''
 
-    jumps[jump_num] = (date, location, aircraft, gear_used(jump_num), jump_type, str(exit_alt), str(deploy_alt), 'Feet', '0', str(freefall_time), had_reserve_ride(jump_num), had_cutaway(jump_num), notes)
+    jumps[jump_num] = [date, location, aircraft, gear_used(jump_num), jump_type, str(exit_alt), str(deploy_alt), 'Feet', '0', str(freefall_time), had_reserve_ride(jump_num), had_cutaway(jump_num), notes]
 
     jump_num += 1
 
