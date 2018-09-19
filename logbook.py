@@ -123,9 +123,6 @@ one_jump_only = None
 latest_jumps_only = None
 range_of_jumps_only = None
 
-old_jumps_only = False
-new_jumps_only = False
-
 fix_files = False
 
 for option in sys.argv:
@@ -163,12 +160,6 @@ for option in sys.argv:
 
 if '--list' in sys.argv:
     list_jumps = True
-
-if '--old-only' in sys.argv:
-    old_jumps_only = True
-
-if '--new-only' in sys.argv:
-    new_jumps_only = True
 
 if '--fix-files' in sys.argv:
     fix_files = True
@@ -413,7 +404,6 @@ for line in fp:
 fp.close()
 if fix_files:
     fp_new.close()
-last_old_jump = jump_num
 
 #
 # Ingest data from current jumps
@@ -554,55 +544,6 @@ try:
 except FileNotFoundError:
     pass
 
-#
-# Ingest new jumps
-#
-first_new_jump = None
-try:
-    fp = open('new_jumps.csv', 'r')
-
-    for line in fp:
-        line = line.strip()
-        if line == '':
-            continue
-
-        items = line.split(',', 8)
-
-        if not items[0].isdigit():
-            continue
-
-        jump_num = int(items[0])
-        if jump_num in jumps:
-            sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in new_jumps')
-
-        if len(items) != 9:
-            sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in new_jumps')
-
-        # Undo quoting of notes field
-        notes = items[-1]
-        if notes.startswith('"') and notes.endswith('"'):
-            notes = notes[1:-1]
-            notes = notes.replace('""', '"')
-            items[-1] = notes
-        else:
-            if ',' in notes or '"' in notes:
-                sys.exit('Notes field needs proper quoting at jump ' + str(jump_num) + ' in new_jumps')
-
-        items.insert(4, gear_used(jump_num))
-
-        items.insert(8, 'Feet')
-        items.insert(9, '0')
-        items.insert(11, had_reserve_ride(jump_num))
-        items.insert(12, had_cutaway(jump_num))
-
-        jumps[jump_num] = items[1:]
-        if first_new_jump == None:
-            first_new_jump = jump_num
-
-    fp.close()
-except FileNotFoundError:
-    pass
-
 # Check for errors in log data
 last_jump_num = 0
 last_timestamp = None
@@ -674,35 +615,23 @@ if list_jumps:
 
     if csv:
         for i in jump_list:
-            if ((not old_jumps_only and not new_jumps_only) or
-                (old_jumps_only and i <= last_old_jump) or
-                (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                notes = jumps[i][12]
-                if ',' in notes or '"' in notes:
-                    notes = '"' + notes.replace('"', '""') + '"'
-                print(str(i) + ',' + ','.join(jumps[i][:12] + [notes]))
+            notes = jumps[i][12]
+            if ',' in notes or '"' in notes:
+                notes = '"' + notes.replace('"', '""') + '"'
+            print(str(i) + ',' + ','.join(jumps[i][:12] + [notes]))
     elif export:
         alt_unit_translations = {'Feet': 'ft', 'Meters': 'm'}
         for i in jump_list:
-            if ((not old_jumps_only and not new_jumps_only) or
-                (old_jumps_only and i <= last_old_jump) or
-                (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                notes = jumps[i][12]
-                if ',' in notes or '"' in notes:
-                    notes = '"' + notes.replace('"', '""') + '"'
-                print(str(i) + ',' + ','.join(jumps[i][:7] + [alt_unit_translations[jumps[i][7]]] + jumps[i][8:10] + jumps[i][11:12] + [notes]))
+            notes = jumps[i][12]
+            if ',' in notes or '"' in notes:
+                notes = '"' + notes.replace('"', '""') + '"'
+            print(str(i) + ',' + ','.join(jumps[i][:7] + [alt_unit_translations[jumps[i][7]]] + jumps[i][8:10] + jumps[i][11:12] + [notes]))
     elif full:
         for i in jump_list:
-            if ((not old_jumps_only and not new_jumps_only) or
-                (old_jumps_only and i <= last_old_jump) or
-                (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:13]))
+            print(str(i) + ': ' + '|'.join(jumps[i][:7] + jumps[i][9:13]))
     else:
         for i in jump_list:
-            if ((not old_jumps_only and not new_jumps_only) or
-                (old_jumps_only and i <= last_old_jump) or
-                (new_jumps_only and first_new_jump != None and i >= first_new_jump)):
-                print(str(i) + ': ' + '|'.join(jumps[i][:2] + jumps[i][12:13]))
+            print(str(i) + ': ' + '|'.join(jumps[i][:2] + jumps[i][12:13]))
 
 if stats:
     if list_jumps:
