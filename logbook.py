@@ -353,6 +353,7 @@ fp = open('last_logbook.csv', 'r')
 if fix_files:
     fp_new = open('last_logbook_new.csv', 'w')
 
+last_jump_num = 0
 for line in fp:
     line = line.strip()
     if line == '':
@@ -377,6 +378,8 @@ for line in fp:
     jump_num = int(items[0])
     if jump_num in jumps:
         sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in last_logbook')
+    if last_jump_num != 0 and jump_num != (last_jump_num + 1):
+        sys.exit('Jump number not in sequence at jump ' + str(jump_num) + ' in last_logbook')
 
     if len(items) != 9:
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in last_logbook')
@@ -405,6 +408,8 @@ for line in fp:
 
     jumps[jump_num] = items[1:]
 
+    last_jump_num = jump_num
+
 fp.close()
 if fix_files:
     fp_new.close()
@@ -417,6 +422,7 @@ fp = open('jumps.csv', 'r')
 if fix_files:
     fp_new = open('jumps_new.csv', 'w')
 
+last_jump_num = 0
 for line in fp:
     line = line.strip()
     if line == '':
@@ -441,6 +447,8 @@ for line in fp:
     jump_num = int(items[0])
     if jump_num in jumps:
         sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in current jumps')
+    if last_jump_num != 0 and jump_num != (last_jump_num + 1):
+        sys.exit('Jump number not in sequence at jump ' + str(jump_num) + ' in current jumps')
 
     if len(items) != 9:
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in current jumps')
@@ -468,6 +476,8 @@ for line in fp:
     items.insert(12, had_cutaway(jump_num))
 
     jumps[jump_num] = items[1:]
+
+    last_jump_num = jump_num
 
 fp.close()
 if fix_files:
