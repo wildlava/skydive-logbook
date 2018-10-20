@@ -232,6 +232,7 @@ for line in fp:
 fp.close()
 
 jumps = {}
+jump_num_offset = 0
 gaps = []
 
 #
@@ -256,6 +257,9 @@ for line in fp:
     if items[0] == 'gap':
         add_gap = True
         continue
+    elif items[0] == 'offset':
+        jump_num_offset += int(items[1])
+        continue
 
     if not items[0].isdigit():
         #if len(items) == 9:
@@ -269,21 +273,21 @@ for line in fp:
             print(line, file=fp_new)
         continue
 
-    jump_num = int(items[0])
+    jump_num = int(items[0]) + jump_num_offset
 
     if jump_num < 1 or jump_num > 1207:
-        sys.exit('Jump number out of range at jump ' + str(jump_num) + ' in first_logbooks')
+        sys.exit('Jump number out of range at jump ' + str(jump_num - jump_num_offset) + ' in first_logbooks')
     if jump_num in first_jumps:
-        sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in first_logbooks')
+        sys.exit('Duplicate jump number at jump ' + str(jump_num - jump_num_offset) + ' in first_logbooks')
     if jump_num <= last_jump_num:
-        sys.exit('Jump number not increasing at jump ' + str(jump_num) + ' in first_logbooks')
+        sys.exit('Jump number not increasing at jump ' + str(jump_num - jump_num_offset) + ' in first_logbooks')
 
     if add_gap:
         gaps.append(jump_num)
         add_gap = False
 
     if len(items) != 6:
-        sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in first_logbooks')
+        sys.exit('Wrong number of columns at jump ' + str(jump_num - jump_num_offset) + ' in first_logbooks')
 
     # Undo quoting of notes field
     notes = items[-1]
