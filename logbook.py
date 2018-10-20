@@ -232,6 +232,7 @@ for line in fp:
 fp.close()
 
 jumps = {}
+gaps = []
 
 #
 # Ingest data from old logbooks
@@ -242,16 +243,19 @@ if fix_files:
 
 first_jumps = {}
 last_jump_num = 0
+add_gap = False
 for line in fp:
     line = line.strip()
     if line == '':
         if fix_files:
             print(line, file=fp_new)
         continue
-    elif line.startswith('# gap'):
-        last_jump_num = -1
 
     items = line.split(',', 5)
+
+    if items[0] == 'gap':
+        add_gap = True
+        continue
 
     if not items[0].isdigit():
         #if len(items) == 9:
@@ -266,13 +270,20 @@ for line in fp:
         continue
 
     jump_num = int(items[0])
+
+    if jump_num < 1 or jump_num > 1207:
+        sys.exit('Jump number out of range at jump ' + str(jump_num) + ' in first_logbooks')
     if jump_num in first_jumps:
         sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in first_logbooks')
-    if last_jump_num != -1 and jump_num != (last_jump_num + 1):
-        sys.exit('Jump number not in sequence at jump ' + str(jump_num) + ' in first_logbooks')
+    if jump_num <= last_jump_num:
+        sys.exit('Jump number not increasing at jump ' + str(jump_num) + ' in first_logbooks')
+
+    if add_gap:
+        gaps.append(jump_num)
+        add_gap = False
 
     if len(items) != 6:
-        sys.exit('Wrong number of columns at jump ' + str(jump_num))
+        sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in first_logbooks')
 
     # Undo quoting of notes field
     notes = items[-1]
@@ -326,6 +337,7 @@ for line in fp:
         jump_type = first_jumps[jump_num][3]
         notes = first_jumps[jump_num][4]
     else:
+        date = ''
         location = ''
         aircraft = ''
         jump_type = ''
@@ -367,10 +379,11 @@ for line in fp:
         continue
 
     jump_num = int(items[0])
+
     if jump_num in jumps:
         sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in last_logbook')
-    if last_jump_num != 0 and jump_num != (last_jump_num + 1):
-        sys.exit('Jump number not in sequence at jump ' + str(jump_num) + ' in last_logbook')
+    if jump_num <= last_jump_num:
+        sys.exit('Jump number not increasing at jump ' + str(jump_num) + ' in last_logbook')
 
     if len(items) != 9:
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in last_logbook')
@@ -435,10 +448,11 @@ for line in fp:
         continue
 
     jump_num = int(items[0])
+
     if jump_num in jumps:
         sys.exit('Duplicate jump number at jump ' + str(jump_num) + ' in current jumps')
-    if last_jump_num != 0 and jump_num != (last_jump_num + 1):
-        sys.exit('Jump number not in sequence at jump ' + str(jump_num) + ' in current jumps')
+    if jump_num <= last_jump_num:
+        sys.exit('Jump number not increasing at jump ' + str(jump_num) + ' in current jumps')
 
     if len(items) != 9:
         sys.exit('Wrong number of columns at jump ' + str(jump_num) + ' in current jumps')
@@ -552,22 +566,20 @@ for i in sorted(jumps):
     if len(jumps[i]) != 13:
         sys.exit('Wrong number of columns at jump ' + str(i))
 
-    if i != (last_jump_num + 1):
-        sys.exit('Jump number not in sequence at jump ' + str(i))
+    jump_time_string = jumps[i][0]
+    if jump_time_string:
+        if i not in gaps and i != last_jump_num + 1:
+            sys.exit('Jump number not in sequence at jump ' + str(i))
 
-    timestamp = calendar.timegm(time.strptime(jumps[i][0], '%Y-%m-%d'))
-    if last_timestamp != None and timestamp < last_timestamp:
-        sys.exit('Jump date goes back in time at jump ' + str(i))
+        timestamp = calendar.timegm(time.strptime(jump_time_string, '%Y-%m-%d'))
+        if last_timestamp != None and timestamp < last_timestamp:
+            sys.exit('Jump date goes back in time at jump ' + str(i))
 
-    # Note: Remove the following check for an empty string after all old jumps
-    #       are entered into the system. Also remove the similar checks from
-    #       the code that lists types, aircraft, and dropzones.
-    if jumps[i][4] != '' and (jumps[i][4] not in jump_type_profiles):
-        print(jumps[i])
-        sys.exit('Invalid jump type at jump ' + str(i))
+        if jumps[i][4] not in jump_type_profiles:
+            sys.exit('Invalid jump type at jump ' + str(i))
 
-    last_jump_num = i
-    last_timestamp = timestamp
+        last_jump_num = i
+        last_timestamp = timestamp
 
 # Calculate missing values for altitudes and/or freefall times
 calculated_exit_alts = {}
@@ -673,22 +685,24 @@ if stats:
         if freefall_seconds > longest_freefall_time:
             longest_freefall_time = freefall_seconds
 
-        jump_time = time.strptime(jumps[i][0], '%Y-%m-%d')
-        jump_date = datetime.date(jump_time.tm_year,
-                                  jump_time.tm_mon,
-                                  jump_time.tm_mday)
+        jump_time_string = jumps[i][0]
+        if jump_time_string:
+            jump_time = time.strptime(jump_time_string, '%Y-%m-%d')
+            jump_date = datetime.date(jump_time.tm_year,
+                                      jump_time.tm_mon,
+                                      jump_time.tm_mday)
 
-        if jump_date > year_ago:
-            jumps_past_year += 1
-        if jump_date > month_ago:
-            jumps_past_month += 1
+            if jump_date > year_ago:
+                jumps_past_year += 1
+            if jump_date > month_ago:
+                jumps_past_month += 1
 
-        if not jump_date.year in jumps_in_year:
-            jumps_in_year[jump_date.year] = 1
-        else:
-            jumps_in_year[jump_date.year] += 1
+            if not jump_date.year in jumps_in_year:
+                jumps_in_year[jump_date.year] = 1
+            else:
+                jumps_in_year[jump_date.year] += 1
 
-        last_jump_date = jump_date
+            last_jump_date = jump_date
 
     left_width = 40
     #right_width = 32
