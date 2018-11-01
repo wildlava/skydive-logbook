@@ -321,7 +321,10 @@ for line in fp:
     exit_alt = int(items[0])
     freefall_time = int(items[1])
     if freefall_time < 0:
-        deploy_alt = 2500
+        if freefall_time < -1:
+            deploy_alt = -freefall_time
+        else:
+            deploy_alt = 2500
         freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
     else:
         deploy_alt = alt_from_time(exit_alt, freefall_time, FREEFALL_PROFILE_HORIZONTAL)
