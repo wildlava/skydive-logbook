@@ -592,7 +592,7 @@ for i in sorted(jumps):
 calculated_exit_alts = {}
 for i in jumps:
     if jumps[i][5] == '':
-        calculated_exit_alt = str(normal_exit_alt(i))
+        calculated_exit_alt = normal_exit_alt(i)
         if calculated_exit_alt == None:
             sys.exit('Exit altitude calculation not supported at jump ' + str(i))
         else:
@@ -600,7 +600,7 @@ for i in jumps:
 
 for i in jumps:
     if i in calculated_exit_alts:
-        jumps[i][5] = calculated_exit_alts[i]
+        jumps[i][5] = str(calculated_exit_alts[i])
 
     if jumps[i][9] == '':
         if jumps[i][6] == '':
