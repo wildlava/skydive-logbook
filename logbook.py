@@ -82,6 +82,19 @@ def alt_from_time(ealt, t, jump_type):
 
     return(ealt - d)
 
+def alt_from_time_109mph(ealt, t):
+    vt = 154.2
+
+    tt = vt / a
+    dt = 0.5 * a * (tt * tt)
+
+    if t < tt:
+        d = round(0.5 * a * (t * t))
+    else:
+        d = round(dt + (t - tt) * vt)
+
+    return(ealt - d)
+
 def gear_used(jump_num):
     gear = ''
     for i in sorted(gear_log):
@@ -315,23 +328,12 @@ for line in fp:
 
     items = line.strip().split()
     exit_alt = int(items[0])
+    deploy_alt = None
     freefall_time = int(items[1])
     if freefall_time < 0:
         if freefall_time < -1:
             deploy_alt = -freefall_time
-        else:
-            deploy_alt = 2500
-        freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-    else:
-        deploy_alt = alt_from_time(exit_alt, freefall_time, FREEFALL_PROFILE_HORIZONTAL)
-        if jump_num < 100 and deploy_alt < 2500 and exit_alt >= 3000:
-            deploy_alt = 2500
-            freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-        elif deploy_alt < 2200 and exit_alt >= 3000:
-            deploy_alt = 2200
-            freefall_time = time_from_alt(exit_alt, deploy_alt, FREEFALL_PROFILE_HORIZONTAL)
-        #if deploy_alt < 2500:
-        #    print('*************************************************************')
+        freefall_time = None
 
     if jump_num in first_jumps:
         date = first_jumps[jump_num][0]
@@ -343,10 +345,13 @@ for line in fp:
         date = ''
         location = ''
         aircraft = ''
-        jump_type = ''
+        # Use RW for jump type if details not yet entered.
+        # Note: This whole "else" can be changed to an error
+        #       when all data has been entered.
+        jump_type = 'RW'
         notes = ''
 
-    jumps[jump_num] = [date, location, aircraft, gear_used(jump_num), jump_type, str(exit_alt), str(deploy_alt), 'Feet', '0', str(freefall_time), had_reserve_ride(jump_num), had_cutaway(jump_num), notes]
+    jumps[jump_num] = [date, location, aircraft, gear_used(jump_num), jump_type, str(exit_alt), '' if deploy_alt == None else str(deploy_alt), 'Feet', '0', '' if freefall_time == None else str(freefall_time), had_reserve_ride(jump_num), had_cutaway(jump_num), notes]
 
     jump_num += 1
 
@@ -604,9 +609,18 @@ for i in jumps:
                 jumps[i][6] = '2500'
             else:
                 jumps[i][6] = '2700'
+
         jumps[i][9] = str(time_from_alt(int(jumps[i][5]), int(jumps[i][6]), jump_type_profiles[jumps[i][4]]))
     elif jumps[i][6] == '':
-        jumps[i][6] = str(alt_from_time(int(jumps[i][5]), int(jumps[i][9]), jump_type_profiles[jumps[i][4]]))
+        if i <= 1207:
+            # For the "first jumps", a freefall time table for 109mph
+            # was incorrectly used to log freefall time, so here we
+            # use the reverse calculation to obtain the correct
+            # deployment altitude and then fix the freefall time.
+            jumps[i][6] = str(alt_from_time_109mph(int(jumps[i][5]), int(jumps[i][9])))
+            jumps[i][9] = str(time_from_alt(int(jumps[i][5]), int(jumps[i][6]), jump_type_profiles[jumps[i][4]]))
+        else:
+            jumps[i][6] = str(alt_from_time(int(jumps[i][5]), int(jumps[i][9]), jump_type_profiles[jumps[i][4]]))
 
 if list_jumps:
     if header:
