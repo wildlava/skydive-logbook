@@ -42,7 +42,7 @@ def normal_exit_alt(i):
                     alt_total += exit_alt
                     num_alts += 1
 
-        return int(round(alt_total / num_alts, 0))
+        return round(alt_total / num_alts)
     else:
         return None
 
@@ -58,10 +58,10 @@ def time_from_alt(ealt, dalt, jump_type):
 
     d = ealt - dalt
     if d < dt:
-        t = int(round(math.sqrt(2.0 * d / a), 0))
+        t = round(math.sqrt(2.0 * d / a))
     else:
-        #t = int(round(((i - dt) / 1000.0) * tpt + tt, 0))
-        t = int(round((d - dt) / vt + tt, 0))
+        #t = round(((i - dt) / 1000.0) * tpt + tt)
+        t = round((d - dt) / vt + tt)
 
     return(t)
 
@@ -77,9 +77,9 @@ def alt_from_time(ealt, t, jump_type):
     #tpt = 1000.0 / vt
 
     if t < tt:
-        d = int(round(0.5 * a * (t * t)))
+        d = round(0.5 * a * (t * t))
     else:
-        d = int(round(dt + (t - tt) * vt))
+        d = round(dt + (t - tt) * vt)
 
     return(ealt - d)
 
