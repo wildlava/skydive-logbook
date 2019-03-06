@@ -65,7 +65,6 @@ def time_from_alt(ealt, dalt, jump_type):
 
     return(t)
 
-
 def alt_from_time(ealt, t, jump_type):
     if jump_type == FREEFALL_PROFILE_TRACKING:
         vt = vt_tracking
@@ -83,7 +82,6 @@ def alt_from_time(ealt, t, jump_type):
 
     return(ealt - d)
 
-
 def gear_used(jump_num):
     gear = ''
     for i in sorted(gear_log):
@@ -93,13 +91,11 @@ def gear_used(jump_num):
 
     return gear
 
-
 def had_reserve_ride(jump_num):
     if jump_num in reserve_ride_log:
         return 'Yes'
 
     return 'No'
-
 
 def had_cutaway(jump_num):
     if jump_num in reserve_ride_log:
