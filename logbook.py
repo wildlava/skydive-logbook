@@ -721,6 +721,8 @@ if stats:
 
             last_jump_date = jump_date
 
+    days_since_last_jump = (today - last_jump_date).days
+
     left_width = 40
     #right_width = 32
 
@@ -756,7 +758,7 @@ if stats:
     print()
 
     if last_jump_date:
-        print('Date of last jump: '.ljust(left_width) + last_jump_date.strftime('%A, %b %d, %Y').replace(' 0', ' '))
+        print('Date of last jump: '.ljust(left_width) + last_jump_date.strftime('%A, %b %d, %Y').replace(' 0', ' ') + '  (' + str(days_since_last_jump) + ' ' + ('day' if days_since_last_jump == 1 else 'days') + ' ago)')
     else:
         print('Date of last jump: '.ljust(left_width) + 'Never')
 
