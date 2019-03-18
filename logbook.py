@@ -24,13 +24,13 @@ jump_type_profiles = {'RW': FREEFALL_PROFILE_HORIZONTAL,
 
 normal_exit_altitudes = {'Mile-Hi': (11000, 13999)}
 
-def normal_exit_alt(i):
+def exit_alt_average(i):
     dropzone = jumps[i][1]
     if dropzone in normal_exit_altitudes:
         minimum = normal_exit_altitudes[dropzone][0]
         maximum = normal_exit_altitudes[dropzone][1]
 
-        alt_total = 0
+        alt_total = 0.0
         num_alts = 0
         for j in sorted(jumps):
             if j >= i:
@@ -589,19 +589,20 @@ for i in sorted(jumps):
         last_jump_num = i
         last_timestamp = timestamp
 
-# Calculate missing values for altitudes and/or freefall times
-calculated_exit_alts = {}
+# Predict missing exit altitudes
+predicted_exit_alts = {}
 for i in jumps:
     if jumps[i][5] == '':
-        calculated_exit_alt = normal_exit_alt(i)
-        if calculated_exit_alt == None:
+        predicted_exit_alt = exit_alt_average(i)
+        if predicted_exit_alt == None:
             sys.exit('Exit altitude calculation not supported at jump ' + str(i))
         else:
-            calculated_exit_alts[i] = calculated_exit_alt
+            predicted_exit_alts[i] = predicted_exit_alt
 
+# Insert calculated values for missing altitudes and/or freefall times
 for i in jumps:
-    if i in calculated_exit_alts:
-        jumps[i][5] = str(calculated_exit_alts[i])
+    if i in predicted_exit_alts:
+        jumps[i][5] = str(predicted_exit_alts[i])
 
     if jumps[i][9] == '':
         if jumps[i][6] == '':
