@@ -22,7 +22,8 @@ jump_type_profiles = {'RW': FREEFALL_PROFILE_HORIZONTAL,
                       'Freestyle': FREEFALL_PROFILE_HORIZONTAL,
                       'Tracking': FREEFALL_PROFILE_TRACKING}
 
-normal_exit_altitudes = {'Mile-Hi': (11000, 13999)}
+normal_exit_altitudes = {'Mile-Hi': (11000, 13999),
+                         'Spaceland Dallas': (11000, 14999)}
 
 def exit_alt_average(i):
     dropzone = jumps[i][1]
