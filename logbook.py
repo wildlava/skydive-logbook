@@ -25,6 +25,32 @@ jump_type_profiles = {'RW': FREEFALL_PROFILE_HORIZONTAL,
 normal_exit_altitudes = {'Mile-Hi': (11000, 13999),
                          'Spaceland Dallas': (11000, 14999)}
 
+freefall_time_table_109mph = ((500, 6),
+                              (1000, 10),
+                              (1500, 13),
+                              (2000, 16),
+                              (2500, 20),
+                              (3000, 23),
+                              (3500, 26),
+                              (4000, 29),
+                              (4500, 32),
+                              (5000, 35),
+                              (5500, 39),
+                              (6000, 42),
+                              (6500, 45),
+                              (7000, 48),
+                              (7500, 51),
+                              (8000, 54),
+                              (8500, 57),
+                              (9000, 61),
+                              (9500, 64),
+                              (10000, 67),
+                              (10500, 70),
+                              (11000, 73),
+                              (11500, 76),
+                              (12000, 80),
+                              (12500, 83))
+
 def exit_alt_average(i):
     dropzone = jumps[i][1]
     if dropzone in normal_exit_altitudes:
@@ -115,6 +141,33 @@ def had_cutaway(jump_num):
 
     return 'No'
 
+
+if '--diag' in sys.argv:
+    print('Old freefall time table function test with just values in table')
+    print('(table time, table distance, distance, distance difference)')
+    print('---------------------------------------------------------------')
+    average = 0.0
+    num = 0
+    for table_entry in freefall_time_table_109mph:
+        table_dist = table_entry[0]
+        table_time = table_entry[1]
+        dist = -alt_from_time_109mph(0, table_time)
+        dist_diff = dist - table_dist
+        print(table_time, table_dist, dist, dist_diff)
+        if table_time >= 10.0:
+            average += dist_diff
+            num += 1
+    print("Average distance difference (in linear range): " + str(average / num))
+    print()
+
+    print('Old freefall time table function test for every second')
+    print('(time, distance)')
+    print('------------------------------------------------------')
+    for time in range(0, 100):
+        dist = -alt_from_time_109mph(0, time)
+        print(time, dist)
+
+    sys.exit()
 
 list_jumps = False
 header = False
