@@ -84,15 +84,13 @@ def alt_from_time(ealt, t, jump_type):
     return(ealt - d)
 
 def alt_from_time_109mph(ealt, t):
-    vt = 154.2
-
-    tt = vt / a
-    dt = 0.5 * a * (tt * tt)
-
-    if t < tt:
-        d = round(0.5 * a * (t * t))
+    if t < 10.0:
+        p = 1.4
+        d = round((1000 / 10**p) * t**p)
     else:
-        d = round(dt + (t - tt) * vt)
+        m = (12500 - 1000) / (82.834 - 10)
+        b = -10 * m + 1000
+        d = round(m * t + b)
 
     return(ealt - d)
 
