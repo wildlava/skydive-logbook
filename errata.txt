@@ -2,3 +2,4 @@
 678/679: swapped - no fix needed (correct in logbook.dat)
 687-688: skipped - fixed in logbook.py by using "offset"
 867->865: corrected skipped jumps 687-688
+984-990: Otter and Casa jumped, but had to guess which one for each jump
