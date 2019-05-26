@@ -378,21 +378,14 @@ for line in fp:
             deploy_alt = -freefall_time
         freefall_time = None
 
-    if jump_num in first_jumps:
+    try:
         date = first_jumps[jump_num][0]
         location = first_jumps[jump_num][1]
         aircraft = first_jumps[jump_num][2]
         jump_type = first_jumps[jump_num][3]
         notes = first_jumps[jump_num][4]
-    else:
-        date = ''
-        location = ''
-        aircraft = ''
-        # Use RW for jump type if details not yet entered.
-        # Note: This whole "else" can be changed to an error
-        #       when all data has been entered.
-        jump_type = 'RW'
-        notes = ''
+    except KeyError:
+        sys.exit('Jump not in first_logbooks at jump ' + str(jump_num) + ' in logbook.dat')
 
     jumps[jump_num] = [date, location, aircraft, gear_used(jump_num), jump_type, str(exit_alt), '' if deploy_alt == None else str(deploy_alt), 'Feet', '0', '' if freefall_time == None else str(freefall_time), had_reserve_ride(jump_num), had_cutaway(jump_num), notes]
 
@@ -614,23 +607,22 @@ last_jump_num = 0
 last_timestamp = None
 
 for i in sorted(jumps):
+    if i != last_jump_num + 1:
+        sys.exit('Jump number not in sequence at jump ' + str(i))
+
     if len(jumps[i]) != 13:
         sys.exit('Wrong number of columns at jump ' + str(i))
 
     jump_time_string = jumps[i][0]
-    if jump_time_string:
-        if i != last_jump_num + 1:
-            sys.exit('Jump number not in sequence at jump ' + str(i))
+    timestamp = calendar.timegm(time.strptime(jump_time_string, '%Y-%m-%d'))
+    if last_timestamp != None and timestamp < last_timestamp:
+        sys.exit('Jump date goes back in time at jump ' + str(i))
 
-        timestamp = calendar.timegm(time.strptime(jump_time_string, '%Y-%m-%d'))
-        if last_timestamp != None and timestamp < last_timestamp:
-            sys.exit('Jump date goes back in time at jump ' + str(i))
+    if jumps[i][4] not in jump_type_profiles:
+        sys.exit('Invalid jump type at jump ' + str(i))
 
-        if jumps[i][4] not in jump_type_profiles:
-            sys.exit('Invalid jump type at jump ' + str(i))
-
-        last_jump_num = i
-        last_timestamp = timestamp
+    last_jump_num = i
+    last_timestamp = timestamp
 
 # Predict missing exit altitudes
 predicted_exit_alts = {}
@@ -747,23 +739,22 @@ if stats:
             longest_freefall_time = freefall_seconds
 
         jump_time_string = jumps[i][0]
-        if jump_time_string:
-            jump_time = time.strptime(jump_time_string, '%Y-%m-%d')
-            jump_date = datetime.date(jump_time.tm_year,
-                                      jump_time.tm_mon,
-                                      jump_time.tm_mday)
+        jump_time = time.strptime(jump_time_string, '%Y-%m-%d')
+        jump_date = datetime.date(jump_time.tm_year,
+                                    jump_time.tm_mon,
+                                    jump_time.tm_mday)
 
-            if jump_date > year_ago:
-                jumps_past_year += 1
-            if jump_date > month_ago:
-                jumps_past_month += 1
+        if jump_date > year_ago:
+            jumps_past_year += 1
+        if jump_date > month_ago:
+            jumps_past_month += 1
 
-            if not jump_date.year in jumps_in_year:
-                jumps_in_year[jump_date.year] = 1
-            else:
-                jumps_in_year[jump_date.year] += 1
+        if not jump_date.year in jumps_in_year:
+            jumps_in_year[jump_date.year] = 1
+        else:
+            jumps_in_year[jump_date.year] += 1
 
-            last_jump_date = jump_date
+        last_jump_date = jump_date
 
     days_since_last_jump = (today - last_jump_date).days
 
