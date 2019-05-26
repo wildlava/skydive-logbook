@@ -294,7 +294,6 @@ fp.close()
 
 jumps = {}
 jump_num_offset = 0
-gaps = []
 
 #
 # Ingest data from old logbooks
@@ -305,7 +304,6 @@ if fix_files:
 
 first_jumps = {}
 last_jump_num = 0
-add_gap = False
 for line in fp:
     line = line.strip()
     if line == '':
@@ -315,10 +313,7 @@ for line in fp:
 
     items = line.split(',', 5)
 
-    if items[0] == 'gap':
-        add_gap = True
-        continue
-    elif items[0] == 'offset':
+    if items[0] == 'offset':
         jump_num_offset += int(items[1])
         continue
 
@@ -342,10 +337,6 @@ for line in fp:
         sys.exit('Duplicate jump number at jump ' + str(jump_num - jump_num_offset) + ' in first_logbooks')
     if jump_num <= last_jump_num:
         sys.exit('Jump number not increasing at jump ' + str(jump_num - jump_num_offset) + ' in first_logbooks')
-
-    if add_gap:
-        gaps.append(jump_num)
-        add_gap = False
 
     if len(items) != 6:
         sys.exit('Wrong number of columns at jump ' + str(jump_num - jump_num_offset) + ' in first_logbooks')
@@ -628,7 +619,7 @@ for i in sorted(jumps):
 
     jump_time_string = jumps[i][0]
     if jump_time_string:
-        if i not in gaps and i != last_jump_num + 1:
+        if i != last_jump_num + 1:
             sys.exit('Jump number not in sequence at jump ' + str(i))
 
         timestamp = calendar.timegm(time.strptime(jump_time_string, '%Y-%m-%d'))
