@@ -3,6 +3,7 @@ import math
 import time
 import calendar
 import datetime
+import shutil
 
 a = 32.174
 vt_horizontal = 176.0
@@ -758,13 +759,22 @@ if stats:
 
     days_since_last_jump = (today - last_jump_date).days
 
-    left_width = 40
-    #right_width = 32
+    max_jumps_in_year = jumps_in_year[max(jumps_in_year, key=jumps_in_year.get)]
+    jumps_in_year_len = len(str(max_jumps_in_year))
+    bar_max_len = shutil.get_terminal_size().columns - (jumps_in_year_len + 8)
+    bar_units_per_jump = bar_max_len / max_jumps_in_year
 
+    print('Jumps per year')
+    print('--------------')
     for i in sorted(jumps_in_year):
-        print(('Jumps in %s' % i).ljust(left_width) + str(jumps_in_year[i]))
+        n = jumps_in_year[i]
+        bar_string = '=' * round(n * bar_units_per_jump)
+        print(str(i) + ' (' + str(n).rjust(jumps_in_year_len) + ') ' + bar_string)
 
     print()
+
+    left_width = 40
+    #right_width = 32
 
     print('Total jumps: '.ljust(left_width) + str(len(jumps)))
 
