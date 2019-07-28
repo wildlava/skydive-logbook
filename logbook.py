@@ -642,7 +642,9 @@ for i in jumps:
 
     if jumps[i][9] == '':
         if jumps[i][6] == '':
-            if i < 1569:
+            if i < 1138:
+                jumps[i][6] = '2100'
+            elif i < 1569:
                 jumps[i][6] = '2500'
             else:
                 jumps[i][6] = '2700'
