@@ -12,45 +12,51 @@ vt_tracking = 144.0
 FREEFALL_PROFILE_HORIZONTAL = 0
 FREEFALL_PROFILE_TRACKING = 1
 
-jump_type_profiles = {'RW': FREEFALL_PROFILE_HORIZONTAL,
-                      'CRW': FREEFALL_PROFILE_HORIZONTAL,
-                      'Static Line': FREEFALL_PROFILE_HORIZONTAL,
-                      'Hop and Pop': FREEFALL_PROFILE_HORIZONTAL,
-                      'JM': FREEFALL_PROFILE_HORIZONTAL,
-                      'Tandem': FREEFALL_PROFILE_HORIZONTAL,
-                      'Sit-Fly': FREEFALL_PROFILE_HORIZONTAL,
-                      'Hybrid': FREEFALL_PROFILE_HORIZONTAL,
-                      'Freestyle': FREEFALL_PROFILE_HORIZONTAL,
-                      'Tracking': FREEFALL_PROFILE_TRACKING}
+jump_type_profiles = {
+    'RW': FREEFALL_PROFILE_HORIZONTAL,
+    'CRW': FREEFALL_PROFILE_HORIZONTAL,
+    'Static Line': FREEFALL_PROFILE_HORIZONTAL,
+    'Hop and Pop': FREEFALL_PROFILE_HORIZONTAL,
+    'JM': FREEFALL_PROFILE_HORIZONTAL,
+    'Tandem': FREEFALL_PROFILE_HORIZONTAL,
+    'Sit-Fly': FREEFALL_PROFILE_HORIZONTAL,
+    'Hybrid': FREEFALL_PROFILE_HORIZONTAL,
+    'Freestyle': FREEFALL_PROFILE_HORIZONTAL,
+    'Tracking': FREEFALL_PROFILE_TRACKING,
+}
 
-normal_exit_altitudes = {'Mile-Hi': (11000, 13999),
-                         'Spaceland Dallas': (11000, 14999)}
+normal_exit_altitudes = {
+    'Mile-Hi': (11000, 13999),
+    'Spaceland Dallas': (11000, 14999),
+}
 
-freefall_time_table_109mph = ((500, 6),
-                              (1000, 10),
-                              (1500, 13),
-                              (2000, 16),
-                              (2500, 20),
-                              (3000, 23),
-                              (3500, 26),
-                              (4000, 29),
-                              (4500, 32),
-                              (5000, 35),
-                              (5500, 39),
-                              (6000, 42),
-                              (6500, 45),
-                              (7000, 48),
-                              (7500, 51),
-                              (8000, 54),
-                              (8500, 57),
-                              (9000, 61),
-                              (9500, 64),
-                              (10000, 67),
-                              (10500, 70),
-                              (11000, 73),
-                              (11500, 76),
-                              (12000, 80),
-                              (12500, 83))
+freefall_time_table_109mph = (
+    (500, 6),
+    (1000, 10),
+    (1500, 13),
+    (2000, 16),
+    (2500, 20),
+    (3000, 23),
+    (3500, 26),
+    (4000, 29),
+    (4500, 32),
+    (5000, 35),
+    (5500, 39),
+    (6000, 42),
+    (6500, 45),
+    (7000, 48),
+    (7500, 51),
+    (8000, 54),
+    (8500, 57),
+    (9000, 61),
+    (9500, 64),
+    (10000, 67),
+    (10500, 70),
+    (11000, 73),
+    (11500, 76),
+    (12000, 80),
+    (12500, 83),
+)
 
 def exit_alt_average(i):
     dropzone = jumps[i][1]
